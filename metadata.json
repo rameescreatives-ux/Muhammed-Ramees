@@ -1,0 +1,6 @@
+{
+  "name": "ShadowX Budget",
+  "description": "Personal budgeting app for individuals and small teams to track income, expenses, and monthly category budgets with private, per-account workspace isolation.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

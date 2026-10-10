@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Rounded squircle badge for SX Monogram -->
+    <path
+        android:fillColor="#153A63"
+        android:pathData="M34,26 L74,26 A14,14 0 0,1 88,40 L88,68 A14,14 0 0,1 74,82 L34,82 A14,14 0 0,1 20,68 L20,40 A14,14 0 0,1 34,26 Z" />
+    <!-- Gold border accent -->
+    <path
+        android:strokeColor="#E6B34F"
+        android:strokeWidth="2.5"
+        android:fillColor="#00000000"
+        android:pathData="M34,26 L74,26 A14,14 0 0,1 88,40 L88,68 A14,14 0 0,1 74,82 L34,82 A14,14 0 0,1 20,68 L20,40 A14,14 0 0,1 34,26 Z" />
+
+    <!-- Stylized 'S' in bright gold -->
+    <path
+        android:fillColor="#E6B34F"
+        android:pathData="M48,39 C48,36.5 45,35 41,35 C36.5,35 33,37 32.5,40.5 C32,44 35,46 39,47.5 L42,48.5 C47,50.5 50,53 50,57.5 C50,63 45,67 38.5,67 C32.5,67 29,63.5 28.5,59 L34.5,58.2 C35,60.5 36.5,62 38.5,62 C41.5,62 43.5,60.5 43.5,58 C43.5,55.5 41.5,54 37,52 L34,51 C30,49.2 26.5,46.2 26.5,41 C26.5,35 31.5,30 39.5,30 C46.5,30 50,34 50.5,38.5 L44.5,39.2 Z" />
+
+    <!-- Stylized 'X' in vibrant teal -->
+    <path
+        android:fillColor="#1F8A7A"
+        android:pathData="M54,34 L61,34 L68.5,46.5 L76,34 L83,34 L72.5,51 L84,68 L77,68 L68.5,55 L60,68 L53,68 L64.5,51 Z" />
+
+    <!-- Sleek mini pulse / dot highlight -->
+    <path
+        android:fillColor="#E8822E"
+        android:pathData="M68.5,51m-2.2,0a2.2,2.2 0 1,1 4.4,0a2.2,2.2 0 1,1 -4.4,0" />
+</vector>
