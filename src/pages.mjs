@@ -7,17 +7,18 @@ const certName = (k, lang) => (lang === 'ar' && CERT_AR[k]) || k;
 const retailerName = (n, lang) => (lang === 'ar' && RETAILER_AR[n]) || n;
 const today = new Date().toISOString().slice(0, 10);
 
-const pageHero = (h1, lead, crumbs, lang, c, extra = '') =>
-  `<section class="page-hero"><div class="wrap">${crumbNav(crumbs, lang)}<h1 class="reveal">${esc(fmt(h1))}</h1><p class="lead reveal">${esc(fmt(lead))}</p>${extra}</div></section>`;
+const pageHero = (h1, lead, crumbs, lang, c, extra = '', bg = '') =>
+  `<section class="page-hero${bg ? ' has-bg' : ''}"${bg ? ` style="--bg:url(/assets/img/art/${bg}.svg)"` : ''}><div class="wrap">${crumbNav(crumbs, lang)}<h1 class="reveal">${esc(fmt(h1))}</h1><p class="lead reveal">${esc(fmt(lead))}</p>${extra}</div></section>`;
 
 function crumbNav(crumbs, lang) {
   if (!crumbs || crumbs.length < 2) return '';
   return `<nav class="crumbs" aria-label="Breadcrumb"><ol>${crumbs.map(([n, p], i) => i === crumbs.length - 1 ? `<li aria-current="page">${esc(n)}</li>` : `<li><a href="${href(lang, p)}">${esc(n)}</a></li>`).join('')}</ol></nav>`;
 }
 
+const recipeImg = (r, eager = false) => `<img class="cover" src="/assets/img/recipes/${r.slug}.svg" alt="${esc(r.name)}" ${eager ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async" width="800" height="500">`;
 const recipeCard = (r, c, lang) => {
   const p = PRODUCTS.find((x) => x.slug === r.product);
-  return `<article class="card rcard reveal"><a class="rimg" href="${href(lang, '/recipes/' + r.slug + '/')}" aria-label="${esc(r.name)}">${picture(p.img, r.name)}</a>
+  return `<article class="card rcard reveal"><a class="rimg" href="${href(lang, '/recipes/' + r.slug + '/')}" aria-label="${esc(r.name)}">${recipeImg(r)}</a>
   <div class="rbody"><span class="pill">${esc(r.cat)}</span><h3><a href="${href(lang, '/recipes/' + r.slug + '/')}">${esc(r.name)}</a></h3><p>${esc(r.desc)}</p>
   <p class="meta">${esc(c.ui.time)}: ${r.time} ${esc(c.ui.minutes)} · ${esc(c.ui.serves)}: ${r.serves}</p></div></article>`;
 };
@@ -34,21 +35,33 @@ const skuRows = (c, lang) => {
   return [...retail, ...pro, bulk].join('');
 };
 
+const ST = 'fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"';
+const TILE_ICONS = {
+  sunflower: `<svg viewBox="0 0 32 32" ${ST}><circle cx="16" cy="16" r="4.2"/>${Array.from({ length: 10 }, (_, i) => `<ellipse cx="16" cy="6.6" rx="2.3" ry="3.6" transform="rotate(${i * 36} 16 16)"/>`).join('')}</svg>`,
+  corn: `<svg viewBox="0 0 32 32" ${ST}><ellipse cx="16" cy="13" rx="5" ry="9"/><path d="M16 4v18M12 9h8M11.5 14h9"/><path d="M16 29c-7-1-9-8-9-13 4 2 7 5 9 9M16 29c7-1 9-8 9-13-4 2-7 5-9 9"/></svg>`,
+  canola: `<svg viewBox="0 0 32 32" ${ST}><circle cx="16" cy="9" r="3.4"/><circle cx="9.5" cy="15" r="3.4"/><circle cx="22.5" cy="15" r="3.4"/><circle cx="16" cy="15" r="1.4"/><path d="M16 18.5V29M16 24c-3-1-4-3-4-5M16 25c3-1 4-3 4-5"/></svg>`,
+  fats: `<svg viewBox="0 0 32 32" ${ST}><path d="M4 14l5-5h19l-5 5z"/><rect x="4" y="14" width="19" height="11" rx="1.5"/><path d="M23 14l5-5v11l-5 5M8 19h11"/></svg>`,
+};
+
 // ------------------------------------------------------------------ HOME
 function home(lang, c) {
   const hero = c.home.hero;
-  const slides = hero.map((s, i) => `<div class="slide s${i + 1}${i === 0 ? ' is-active' : ''}" role="group" aria-roledescription="slide" aria-label="${esc(c.ui.slide)} ${i + 1} / ${hero.length}">
-    <div class="wrap slide-in"><div class="stext"><span class="eyebrow light">${esc(s.eyebrow)}</span>${i === 0 ? '<h1>' : '<h2>'}${esc(fmt(s.h))}${i === 0 ? '</h1>' : '</h2>'}<p>${esc(fmt(s.p))}</p><a class="btn btn-white" href="${href(lang, s.href)}">${esc(s.cta)}</a></div>
-    <div class="sart n${s.imgs.length}">${s.imgs.map((k, j) => `<img class="float f${j}" src="${esc(imgUrl(k))}" alt="" ${i === 0 && j === 0 ? 'fetchpriority="high"' : 'loading="' + (i === 0 ? 'eager' : 'lazy') + '"'} decoding="async" width="500" height="500">`).join('')}</div></div></div>`).join('');
+  const BGS = ['hero-sunflower', 'hero-corn', 'hero-canola', 'hero-fats'];
+  const slides = hero.map((s, i) => `<div class="slide s${i + 1}${i === 0 ? ' is-active' : ''}" style="--bg:url(/assets/img/art/${BGS[i]}.svg)" role="group" aria-roledescription="slide" aria-label="${esc(c.ui.slide)} ${i + 1} / ${hero.length}">
+    <div class="wrap slide-in"><div class="stext"><span class="eyebrow light">${esc(s.eyebrow)}</span>${i === 0 ? '<h1>' : '<h2>'}${esc(fmt(s.h))}${i === 0 ? '</h1>' : '</h2>'}<p>${esc(fmt(s.p))}</p><a class="btn btn-white" href="${href(lang, s.href)}">${esc(s.cta)}</a></div></div></div>`).join('');
   const dots = hero.map((_, i) => `<button type="button" class="dot${i === 0 ? ' is-active' : ''}" data-i="${i}" aria-label="${esc(c.ui.slide)} ${i + 1}"></button>`).join('');
+  const tiles = c.home.tiles.map((t) => `<a class="tile" href="${href(lang, t.href)}"><span class="ti">${TILE_ICONS[t.k]}</span><span class="tt">${esc(t.t)}</span><span class="ta" aria-hidden="true"></span></a>`).join('');
   const first4 = PRODUCTS.slice(0, 4), rest = PRODUCTS.slice(4);
 
   const body = `
 <section class="hero" aria-roledescription="carousel" aria-label="Coroli">
-  <div class="slides">${slides}</div>
-  <button type="button" class="hnav prev" aria-label="${esc(c.ui.sliderPrev)}"><span aria-hidden="true"></span></button>
-  <button type="button" class="hnav next" aria-label="${esc(c.ui.sliderNext)}"><span aria-hidden="true"></span></button>
-  <div class="dots">${dots}</div>
+  <div class="stage">
+    <div class="slides">${slides}</div>
+    <button type="button" class="hnav prev" aria-label="${esc(c.ui.sliderPrev)}"><span aria-hidden="true"></span></button>
+    <button type="button" class="hnav next" aria-label="${esc(c.ui.sliderNext)}"><span aria-hidden="true"></span></button>
+    <div class="dots">${dots}</div>
+  </div>
+  <div class="wrap"><nav class="tiles" aria-label="${esc(c.home.rangeTitle)}">${tiles}</nav></div>
 </section>
 
 <section class="sec" id="range"><div class="wrap">
@@ -106,7 +119,7 @@ ${faqBlock(c.home.faq, c).replace(c.ui.faq, c.home.faqTitle)}`;
 // ------------------------------------------------------------------ ABOUT
 function about(lang, c) {
   const crumbs = [[c.ui.breadcrumbHome, '/'], [c.nav.about, '/about/']];
-  const body = `${pageHero(c.about.h1, c.about.lead, crumbs, lang, c)}
+  const body = `${pageHero(c.about.h1, c.about.lead, crumbs, lang, c, '', 'about')}
 <section class="sec"><div class="wrap narrow prose">${c.about.sections.map((s) => `<div class="reveal"><h2>${esc(s.h)}</h2><p>${esc(fmt(s.p))}</p></div>`).join('')}</div></section>
 <section class="sec certs-sec"><div class="wrap center"><h2 class="reveal">${esc(c.about.certsTitle)}</h2><p class="reveal">${esc(c.about.certsText)}</p>${certBadges(lang)}<p><a class="more" href="${esc(c.about.certsUrl)}" target="_blank" rel="noopener">${esc(c.about.certsLink)} <span aria-hidden="true">→</span></a></p></div></section>`;
   return { path: '/about/', seo: c.about.seo, body, crumbs, ld: [{ '@context': 'https://schema.org', '@type': 'AboutPage', name: c.about.h1, url: abs(lang, '/about/'), about: { '@id': SITE.url + '/#org' } }] };
@@ -115,7 +128,7 @@ function about(lang, c) {
 // ------------------------------------------------------------------ RANGE
 function range(lang, c) {
   const crumbs = [[c.ui.breadcrumbHome, '/'], [c.nav.coroli, '/coroli/']];
-  const body = `${pageHero(c.range.h1, c.range.lead, crumbs, lang, c)}
+  const body = `${pageHero(c.range.h1, c.range.lead, crumbs, lang, c, '', 'products')}
 <section class="sec"><div class="wrap"><div class="pgrid">${PRODUCTS.map((p) => productCard(p, c, lang)).join('')}</div></div></section>
 <section class="sec grey"><div class="wrap narrow"><h2 class="reveal">${esc(c.range.tableTitle)}</h2><div class="table-wrap reveal"><table class="sku"><thead><tr><th>${esc(c.range.tableProduct)}</th><th>${esc(c.range.tableSizes)}</th></tr></thead><tbody>${skuRows(c, lang)}</tbody></table></div></div></section>
 ${faqBlock(c.range.faq, c)}`;
@@ -130,7 +143,7 @@ function product(lang, c, p) {
   const crumbs = [[c.ui.breadcrumbHome, '/'], [c.nav.coroli, '/coroli/'], [t.short, path]];
   const sizes = p.sizes.map((s) => sizeLabel(s, lang)).join(lang === 'ar' ? '، ' : ', ');
   const quick = lang === 'ar'
-    ? `${t.name} منتج من ${SITE.company} (أدفوك) في أبوظبي بالإمارات. الأحجام: ${sizes}. متوفر على نون وأمازون الإمارات وفي السوبرماركت في الإمارات.`
+    ? `${t.name} منتج من ${SITE.companyAr} (أدفوك) في أبوظبي بالإمارات. الأحجام: ${sizes}. متوفر على نون وأمازون الإمارات وفي السوبرماركت في الإمارات.`
     : `${t.name} is made by ${SITE.company} (ADVOC) in Abu Dhabi, UAE. Sizes: ${sizes}. Available on Noon, Amazon.ae and in UAE supermarkets.`;
   const recs = c.recipes.items.filter((r) => r.product === p.slug);
   const others = PRODUCTS.filter((x) => x.slug !== p.slug);
@@ -182,7 +195,7 @@ function pro(lang, c) {
     const p = PRODUCTS.find((x) => x.slug === b.slug);
     return `<article class="card bulk-card reveal">${picture(p.img, c.products[b.slug].short)}<div class="pbody"><h3>${esc(c.products[b.slug].short)}</h3><ul class="chips">${b.sizes.map((s) => `<li>${esc(lang === 'ar' ? s.replace('L', 'لتر').replace('drum', 'برميل') : s)}</li>`).join('')}</ul></div></article>`;
   }).join('');
-  const body = `${pageHero(c.pro.h1, c.pro.lead, crumbs, lang, c, `<div class="row"><a class="btn btn-red" href="#enquiry">${esc(c.pro.formTitle)}</a><a class="btn btn-ghost" href="https://wa.me/${SITE.whatsapp}" target="_blank" rel="noopener">${esc(c.ui.whatsapp)}</a></div>`)}
+  const body = `${pageHero(c.pro.h1, c.pro.lead, crumbs, lang, c, `<div class="row"><a class="btn btn-red" href="#enquiry">${esc(c.pro.formTitle)}</a><a class="btn btn-ghost" href="https://wa.me/${SITE.whatsapp}" target="_blank" rel="noopener">${esc(c.ui.whatsapp)}</a></div>`, 'hero-fats')}
 <section class="sec"><div class="wrap">${heading('', c.pro.fatsTitle, '')}<div class="cgrid">${cartons}</div></div></section>
 <section class="sec grey"><div class="wrap">${heading('', c.pro.bulkTitle, c.pro.bulkText)}<div class="cgrid">${bulk}</div><p class="note center">${esc(c.pro.moq)}</p></div></section>
 <section class="sec"><div class="wrap narrow">${heading('', c.pro.howTitle, '')}<ol class="steps">${c.pro.steps.map((s) => `<li class="reveal">${esc(s)}</li>`).join('')}</ol></div></section>
@@ -196,7 +209,7 @@ ${faqBlock(c.pro.faq, c)}`;
 function buy(lang, c) {
   const crumbs = [[c.ui.breadcrumbHome, '/'], [c.nav.buy, '/where-to-buy/']];
   const rows = PRODUCTS.map((p) => `<tr><th scope="row">${esc(c.products[p.slug].short)}</th><td><div class="row">${buyButtons(p, c)}</div></td></tr>`).join('');
-  const body = `${pageHero(c.buy.h1, c.buy.lead, crumbs, lang, c)}
+  const body = `${pageHero(c.buy.h1, c.buy.lead, crumbs, lang, c, '', 'buy')}
 <section class="sec"><div class="wrap">${heading('', c.buy.onlineTitle, '')}${retailerCards(lang, c)}</div></section>
 <section class="sec grey"><div class="wrap narrow"><h2 class="reveal">${esc(c.buy.byProduct)}</h2><div class="table-wrap reveal"><table class="sku"><tbody>${rows}</tbody></table></div></div></section>
 <section class="sec"><div class="wrap split"><div class="reveal"><h2>${esc(c.buy.storesTitle)}</h2><p>${esc(c.buy.storesText)}</p><div class="map-ph"><strong>${esc(c.buy.mapTitle)}</strong><span>${esc(c.buy.mapText)}</span></div></div>
@@ -210,7 +223,7 @@ function recipes(lang, c) {
   const used = [...new Set(c.recipes.items.map((r) => r.product))];
   const filters = `<div class="filters" role="group"><button type="button" class="chip is-active" data-f="all">${esc(c.ui.filterAll)}</button>${used.map((s) => `<button type="button" class="chip" data-f="${s}">${esc(c.products[s].short)}</button>`).join('')}</div>`;
   const cards = c.recipes.items.map((r) => `<div class="fitem" data-p="${r.product}">${recipeCard(r, c, lang)}</div>`).join('');
-  const body = `${pageHero(c.recipes.h1, c.recipes.lead, crumbs, lang, c)}
+  const body = `${pageHero(c.recipes.h1, c.recipes.lead, crumbs, lang, c, '', 'recipes')}
 <section class="sec"><div class="wrap">${filters}<div class="cgrid">${cards}</div></div></section>`;
   return { path: '/recipes/', seo: c.recipes.seo, body, crumbs, ld: [] };
 }
@@ -220,7 +233,7 @@ function recipe(lang, c, r) {
   const path = '/recipes/' + r.slug + '/';
   const crumbs = [[c.ui.breadcrumbHome, '/'], [c.nav.recipes, '/recipes/'], [r.name, path]];
   const body = `<section class="pdp"><div class="wrap">${crumbNav(crumbs, lang)}
-  <div class="pdp-grid"><div class="pdp-img reveal">${picture(p.img, r.name, '', true)}</div>
+  <div class="pdp-grid"><div class="pdp-img recipe-img reveal">${recipeImg(r, true)}</div>
   <div class="pdp-info"><span class="pill">${esc(r.cat)}</span><h1 class="reveal">${esc(r.name)}</h1><p class="lead reveal">${esc(r.desc)}</p>
   <p class="meta">${esc(c.ui.time)}: ${r.time} ${esc(c.ui.minutes)} · ${esc(c.ui.serves)}: ${r.serves}</p>
   <a class="btn btn-red" href="${href(lang, '/coroli/' + p.slug + '/')}">${esc(c.products[p.slug].short)}</a></div></div></div></section>
@@ -233,13 +246,13 @@ function recipe(lang, c, r) {
     author: { '@id': SITE.url + '/#org' }, datePublished: today, recipeCategory: r.cat, recipeYield: String(r.serves), totalTime: 'PT' + r.time + 'M',
     recipeIngredient: r.ing, recipeInstructions: r.steps.map((s, i) => ({ '@type': 'HowToStep', position: i + 1, text: s })),
   }];
-  return { path, seo: { title: `${r.name} | Coroli ${lang === 'ar' ? 'وصفات' : 'Recipes'}`, desc: r.desc + ' ' + (lang === 'ar' ? 'وصفة من كورولي.' : 'A Coroli recipe.') }, body, crumbs, ld, ogImage: p.img, ogType: 'article' };
+  return { path, seo: { title: `${r.name} | Coroli ${lang === 'ar' ? 'وصفات' : 'Recipes'}`, desc: r.desc + ' ' + (lang === 'ar' ? 'وصفة من كورولي.' : 'A Coroli recipe.') }, body, crumbs, ld, ogImage: 'sunflower', ogType: 'article' };
 }
 
 // ------------------------------------------------------------------ HEALTH / GUIDES
 function health(lang, c) {
   const crumbs = [[c.ui.breadcrumbHome, '/'], [c.nav.health, '/health-lifestyle/']];
-  const body = `${pageHero(c.health.h1, c.health.lead, crumbs, lang, c)}
+  const body = `${pageHero(c.health.h1, c.health.lead, crumbs, lang, c, '', 'health')}
 <section class="sec"><div class="wrap"><div class="cgrid">${c.health.guides.map((g) => guideCard(g, c, lang)).join('')}</div><p class="note center">${esc(c.health.disclaimer)}</p></div></section>`;
   return { path: '/health-lifestyle/', seo: c.health.seo, body, crumbs, ld: [] };
 }
@@ -248,7 +261,7 @@ function guide(lang, c, g) {
   const path = '/health-lifestyle/' + g.slug + '/';
   const crumbs = [[c.ui.breadcrumbHome, '/'], [c.nav.health, '/health-lifestyle/'], [g.name, path]];
   const table = g.table ? `<div class="table-wrap reveal"><table class="sku"><thead><tr>${g.table.head.map((h) => `<th>${esc(h)}</th>`).join('')}</tr></thead><tbody>${g.table.rows.map((r) => `<tr>${r.map((x, i) => i === 0 ? `<th scope="row">${esc(x)}</th>` : `<td>${esc(x)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>` : '';
-  const body = `${pageHero(g.name, g.desc, crumbs, lang, c, `<p class="meta">${esc(c.ui.published)}: ${g.date}</p>`)}
+  const body = `${pageHero(g.name, g.desc, crumbs, lang, c, `<p class="meta">${esc(c.ui.published)}: ${g.date}</p>`, 'health')}
 <section class="sec"><div class="wrap narrow prose">${g.sections.map((s) => `<div class="reveal"><h2>${esc(s.h)}</h2><p>${esc(s.p)}</p></div>`).join('')}${table}
 <p class="note">${esc(c.health.disclaimer)}</p>
 <div class="row"><a class="btn btn-red" href="${href(lang, '/coroli/')}">${esc(c.nav.coroli)}</a><a class="btn btn-ghost" href="${href(lang, '/where-to-buy/')}">${esc(c.nav.buy)}</a></div></div></section>
@@ -264,7 +277,7 @@ ${faqBlock(g.faq, c)}`;
 // ------------------------------------------------------------------ CONTACT / PRIVACY / 404
 function contact(lang, c) {
   const crumbs = [[c.ui.breadcrumbHome, '/'], [c.nav.contact, '/contact/']];
-  const body = `${pageHero(c.contact.h1, c.contact.lead, crumbs, lang, c)}
+  const body = `${pageHero(c.contact.h1, c.contact.lead, crumbs, lang, c, '', 'about')}
 <section class="sec"><div class="wrap split">
   <div class="reveal"><h2>${esc(c.contact.detailsTitle)}</h2><ul class="contact-list big">
     <li><strong>${lang === 'ar' ? 'هاتف' : 'Phone'}</strong><a href="tel:${SITE.phoneHref}" dir="ltr">${esc(SITE.phone)}</a></li>

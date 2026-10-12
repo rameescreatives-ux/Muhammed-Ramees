@@ -15,6 +15,7 @@ export const SITE = {
 
   brand: 'Coroli',
   company: 'Abu Dhabi Vegetable Oil Company L.L.C.',
+  companyAr: 'شركة أبوظبي للزيوت النباتية ذ.م.م',
   companyShort: 'ADVOC',
   advocUrl: 'https://advocuae.com',
   founded: 1973, // CONFIRM with ADVOC (other sources say 1968 / 1977). Used in copy + schema.

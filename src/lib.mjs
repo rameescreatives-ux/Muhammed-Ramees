@@ -192,7 +192,7 @@ function footer(lang, c) {
       <li><a href="${esc(SITE.social.facebook)}" target="_blank" rel="noopener me">Facebook</a></li>
       <li><a href="${esc(SITE.social.youtube)}" target="_blank" rel="noopener me">YouTube</a></li></ul></div>
   </div>
-  <div class="fbottom"><span>© ${new Date().getFullYear()} Coroli · ${esc(SITE.company)}. ${esc(c.ui.rights)}</span><a href="${h('/privacy/')}">${esc(c.ui.privacy)}</a></div>
+  <div class="fbottom"><span>© ${new Date().getFullYear()} Coroli · ${esc(lang === 'ar' ? SITE.companyAr : SITE.company)} · ${esc(c.ui.rights)}</span><a href="${h('/privacy/')}">${esc(c.ui.privacy)}</a></div>
 </div>
 </footer>`;
 }

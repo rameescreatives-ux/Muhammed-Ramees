@@ -88,9 +88,10 @@ export default {
     hero: [
       { eyebrow: 'Coroli', h: 'Winning hearts since {year}', p: 'Trusted cooking oils and pure cow ghee for kitchens across the UAE and GCC.', cta: 'Explore the range', href: '/coroli/', imgs: ['sunflower', 'corn', 'canola'] },
       { eyebrow: 'Everyday cooking', h: 'The oils your kitchen runs on', p: 'Sunflower, corn and canola oil for frying, baking and everything in between.', cta: 'Shop oils', href: '/coroli/', imgs: ['corn', 'sunflower'] },
-      { eyebrow: 'Pure Cow Ghee', h: 'Pure cow ghee, the traditional way', p: 'Rich aroma and a golden, granular texture. From 500 ml to 10 L.', cta: 'Discover ghee', href: '/coroli/ghee/', imgs: ['ghee'] },
+      { eyebrow: 'Canola Oil', h: 'Light canola oil for everyday cooking', p: 'Low in saturated fat with a light taste, for sautéing, stir-frying and baking.', cta: 'Discover canola oil', href: '/coroli/canola/' },
       { eyebrow: 'Coroli Professional', h: 'Built for professional kitchens', p: 'Margarine, shortening and bulk oils for bakeries, hotels and food makers.', cta: 'Business enquiry', href: '/coroli-pro/', imgs: ['icf', 'shortening'] },
     ],
+    tiles: [{ k: 'sunflower', t: 'Sunflower Oil', href: '/coroli/sunflower/' }, { k: 'corn', t: 'Corn Oil', href: '/coroli/corn/' }, { k: 'canola', t: 'Canola Oil', href: '/coroli/canola/' }, { k: 'fats', t: 'Fats', href: '/coroli-pro/' }],
     rangeEyebrow: 'Coroli',
     rangeTitle: 'Our Product Range',
     rangeIntro: 'Pure oils and ghee for everyday cooking. Pick a product, then choose where to buy.',
