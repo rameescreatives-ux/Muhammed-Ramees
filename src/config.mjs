@@ -107,3 +107,22 @@ export const RETAILERS = [
 // Certifications (valid on advocuae.com/certificates as checked 12 Oct 2026).
 // Left out on purpose: Kosher (expired 28.10.2025) and FSSC 22000 (expired 06.09.2026). Add back once renewed.
 export const CERTS = ['ISO 9001', 'ISO 14001', 'ISO 45001', 'Halal', 'RSPO', 'Emirates Quality Mark', 'ADAFSA A grade'];
+
+// Real photos (Unsplash licence: free to use, hotlinking allowed). Swap any URL for your own photo.
+const UQ = (id, w = 1600) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=70`;
+export const PHOTOS = {
+  sunflower: UQ('photo-1548291616-bfccc8db731d', 2000),
+  oil: UQ('photo-1474979266404-7eaacbcd87c5', 2000),
+  fats: UQ('photo-1693483640461-267d788b6148', 2000),
+  salad: UQ('photo-1472926373053-51b220987527', 2000),
+  falafel: UQ('photo-1593001872095-7d5b3868fb1d', 2000),
+  biryani: UQ('photo-1631515243349-e0cb75fb8d3a', 2000),
+};
+export const RECIPE_PHOTOS = {
+  'crispy-falafel': UQ('photo-1593001872095-7d5b3868fb1d', 900),
+  'ghee-chicken-biryani': UQ('photo-1631515243349-e0cb75fb8d3a', 900),
+  'golden-samosas': UQ('photo-1747008624832-e068ee496908', 900),
+  'fluffy-pancakes': UQ('photo-1612182062633-9ff3b3598e96', 900),
+  'olive-oil-salad': UQ('photo-1472926373053-51b220987527', 900),
+  'coconut-granola': UQ('photo-1598259298632-e785684cfa90', 900),
+};

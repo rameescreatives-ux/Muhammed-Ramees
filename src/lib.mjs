@@ -1,6 +1,7 @@
 // Shared helpers + page shell (head, header, footer, chat). Edit layout here.
 import { SITE, PRODUCTS, RETAILERS } from './config.mjs';
 
+const BUILD_V=Date.now().toString(36);
 export const esc = (s) => String(s ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 export const fmt = (s) => String(s ?? '').replaceAll('{year}', SITE.founded).replaceAll('{email}', SITE.email);
 export const href = (lang, p) => (lang === 'ar' ? '/ar' : '') + p;
@@ -123,7 +124,7 @@ ${alts}
 <link rel="apple-touch-icon" href="${esc(SITE.img.favicon)}">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="${GFONTS}">
-<link rel="stylesheet" href="/assets/css/site.css">
+<link rel="stylesheet" href="/assets/css/site.css?v=${BUILD_V}">
 <script>document.documentElement.classList.add('js')</script>
 ${jsonld(graph)}
 </head>
@@ -136,7 +137,7 @@ ${body}
 ${footer(lang, c)}
 ${chat(lang, c)}
 <script>window.COROLI=${JSON.stringify({ lang, sb: SITE.supabase, msg: c.ui.form, news: { ok: c.ui.newsletterOk, err: c.ui.newsletterErr }, chat: SITE.chatEmbedScript })}</script>
-<script src="/assets/js/site.js" defer></script>
+<script src="/assets/js/site.js?v=${BUILD_V}" defer></script>
 </body>
 </html>`;
 }
