@@ -1,0 +1,13 @@
+{
+  "name": "ShadowX Studios",
+  "short_name": "ShadowX",
+  "description": "Branding and web design studio in Abu Dhabi for GCC startups.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#0a0a0a",
+  "lang": "en",
+  "icons": [
+    { "src": "/assets/img/shadowx-wordmark-dark.png", "sizes": "520x161", "type": "image/png" }
+  ]
+}

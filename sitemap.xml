@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <url>
+    <loc>https://shadowx-studios.vercel.app/</loc>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shadowx-studios.vercel.app/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shadowx-studios.vercel.app/ar/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shadowx-studios.vercel.app/"/>
+  </url>
+
+  <url>
+    <loc>https://shadowx-studios.vercel.app/ar/</loc>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shadowx-studios.vercel.app/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shadowx-studios.vercel.app/ar/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shadowx-studios.vercel.app/"/>
+  </url>
+
+  <url><loc>https://shadowx-studios.vercel.app/blog/</loc><lastmod>2026-10-12</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://shadowx-studios.vercel.app/blog/branding-cost-uae/</loc><lastmod>2026-10-12</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://shadowx-studios.vercel.app/blog/what-is-in-a-brand-book/</loc><lastmod>2026-10-12</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://shadowx-studios.vercel.app/blog/bilingual-arabic-english-branding/</loc><lastmod>2026-10-12</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://shadowx-studios.vercel.app/blog/when-to-rebrand/</loc><lastmod>2026-10-12</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://shadowx-studios.vercel.app/blog/agency-freelancer-or-studio/</loc><lastmod>2026-10-12</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://shadowx-studios.vercel.app/blog/logo-only-or-full-branding/</loc><lastmod>2026-10-12</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+
+</urlset>

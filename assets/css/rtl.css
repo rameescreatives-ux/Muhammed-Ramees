@@ -1,0 +1,81 @@
+/* ============================================================================
+   SHADOWX STUDIOS — ARABIC / RTL OVERRIDES
+   Loaded after main.css on /ar/ pages only.
+   Everything here either flips direction or swaps the typeface.
+   ========================================================================== */
+
+:root{
+  /* Arabic display and body both use IBM Plex Sans Arabic — it has the
+     geometric, slightly technical feel that matches the ShadowX wordmark. */
+  --display: 'IBM Plex Sans Arabic', 'Tajawal', system-ui, sans-serif;
+  --body:    'IBM Plex Sans Arabic', 'Tajawal', system-ui, sans-serif;
+}
+
+body{
+  direction: rtl;
+  text-align: right;
+  letter-spacing: 0;              /* Arabic must never be letter-spaced */
+}
+
+/* Arabic needs more line height and no negative tracking */
+h1,h2,h3,h4{
+  letter-spacing: 0;
+  line-height: 1.25;
+  font-weight: 600;
+}
+.h-xl{ font-size:clamp(38px, 7.2vw, 96px); line-height:1.15 }
+.h-lg{ font-size:clamp(30px, 4.8vw, 62px); line-height:1.2 }
+.h-md{ font-size:clamp(24px, 3vw, 40px) }
+
+.lede, .prose, p{ line-height:1.9 }
+
+/* Latin fragments inside Arabic text (AED, names, URLs) keep LTR */
+.ltr{ direction:ltr; unicode-bidi:isolate; display:inline-block }
+
+/* --- Flip the decorative rules and markers ----------------------------- */
+.eyebrow::before{ margin-left:0 }
+.hero::after{ right:auto; left:-260px }
+
+.svc::before{ left:auto; right:0 }
+.svc:hover{ padding-left:0; padding-right:14px }
+
+.tier .flag{ right:auto; left:20px; border-radius:0 0 var(--r) var(--r) }
+
+.tlink::after{ transform-origin:right }
+
+.prose ul,.prose ol{ padding-left:0; padding-right:22px }
+.prose ul li{ padding-left:0; padding-right:20px }
+.prose ul li::before{ left:auto; right:0 }
+.prose ol li{ padding-left:0; padding-right:38px }
+.prose ol li::before{ left:auto; right:0 }
+
+.keybox{
+  border-left:1px solid var(--line-2);
+  border-right:3px solid var(--orange);
+  border-radius:var(--r-lg) 0 0 var(--r-lg);
+}
+
+.ptable th,.ptable td{ text-align:right }
+
+.c-row .v{ text-align:left }
+
+/* --- Chat ------------------------------------------------------------- */
+.chat, .chat-fab{ right:auto; left:22px }
+.bub.bot{ border-bottom-left-radius:12px; border-bottom-right-radius:3px }
+.bub.me { border-bottom-right-radius:12px; border-bottom-left-radius:3px }
+
+/* --- Arrows point the other way in RTL -------------------------------- */
+.btn svg, .tlink svg{ transform:scaleX(-1) }
+.btn:hover svg{ transform:scaleX(-1) translateX(4px) }
+.tlink:hover svg{ transform:scaleX(-1) translateX(3px) }
+.svc .arrow{ transform:scaleX(-1) translateX(8px) }
+.svc:hover .arrow{ transform:scaleX(-1) }
+
+/* --- Marquee runs the other way --------------------------------------- */
+@keyframes mq{ to{ transform:translateX(50%) } }
+
+@media (max-width:560px){
+  .chat{ left:10px; right:10px }
+  .chat-fab{ left:16px; right:auto }
+  .c-row .v{ text-align:right }
+}
