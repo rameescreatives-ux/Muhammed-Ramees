@@ -9,6 +9,7 @@ import {
   values,
   vision,
 } from "@/content/site";
+import { ranges, subRanges } from "@/content/products";
 import type { Locale, Person } from "@/content/types";
 import { T, t, tArray } from "@/lib/i18n";
 import { alternates, breadcrumbSchema } from "@/lib/seo";
@@ -61,8 +62,8 @@ export default async function AboutPage({
 
           <div className="mt-14 grid gap-px overflow-hidden rounded-2xl border border-ink-100 bg-ink-100 sm:grid-cols-3">
             <Stat value="1977" label={locale === "ar" ? "سنة التأسيس" : "Year founded"} />
-            <Stat value="4" label={locale === "ar" ? "مجموعات منتجات" : "Product ranges"} />
-            <Stat value="24" label={locale === "ar" ? "مجموعة فرعية" : "Sub-ranges"} />
+            <Stat value={String(ranges.length)} label={locale === "ar" ? "مجموعات منتجات" : "Product ranges"} />
+            <Stat value={String(subRanges.length)} label={locale === "ar" ? "مجموعة فرعية" : "Sub-ranges"} />
           </div>
         </Container>
       </Section>

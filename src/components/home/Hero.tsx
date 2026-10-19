@@ -7,6 +7,7 @@ import type { Locale } from "@/content/types";
 import { href, t } from "@/lib/i18n";
 import { cn } from "@/lib/cn";
 import { Arrow } from "@/components/ui/Button";
+import { ranges, subRanges } from "@/content/products";
 
 /**
  * Homepage hero.
@@ -58,11 +59,24 @@ export function Hero({ slides, locale }: { slides: Slide[]; locale: Locale }) {
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       aria-roledescription="carousel"
+      data-hero
+      /* Static exports ship only the first slide's markup. Carrying the
+         rest as data lets a plain script rotate them with no framework. */
+      data-slides={JSON.stringify(
+        slides.map((s) => ({
+          eyebrow: t(s.eyebrow, locale),
+          title: t(s.title, locale),
+          body: t(s.body, locale),
+          image: s.image,
+          ctaLabel: t(s.cta.label, locale),
+          ctaHref: href(s.cta.path, locale),
+        })),
+      )}
     >
       <div className={cn("grain bg-gradient-to-br transition-colors duration-700", bg)}>
-        <div className="mx-auto grid max-w-[1480px] items-center gap-10 px-5 pb-16 pt-14 sm:px-8 lg:grid-cols-[1.15fr_1fr] lg:gap-16 lg:pb-24 lg:pt-20">
+        <div className="mx-auto grid max-w-[1480px] items-center gap-8 px-5 pb-16 pt-12 sm:px-8 sm:gap-10 sm:pt-14 lg:grid-cols-[1.15fr_1fr] lg:gap-16 lg:pb-24 lg:pt-20">
           {/* Copy */}
-          <div key={slide.id} className="anim-fade-up relative z-10 text-white">
+          <div key={slide.id} className="anim-fade-up relative z-10 order-2 text-white lg:order-1">
             <p className="mb-5 inline-flex items-center gap-2.5 rounded-full border border-white/20 bg-white/10 px-3.5 py-1.5 text-[0.6875rem] font-bold uppercase tracking-[0.14em] backdrop-blur-sm">
               <span className="h-1.5 w-1.5 rounded-full bg-white" />
               {t(slide.eyebrow, locale)}
@@ -95,17 +109,19 @@ export function Hero({ slides, locale }: { slides: Slide[]; locale: Locale }) {
             </div>
           </div>
 
-          {/* Visual */}
-          <div className="relative hidden lg:block">
-            <div className="relative aspect-4/3">
+          {/* Visual.
+              Shown on every breakpoint: hiding it below lg left phones —
+              most of the traffic — with a hero that had no image at all. */}
+          <div className="relative order-1 lg:order-2">
+            <div className="relative aspect-[5/3] sm:aspect-4/3">
               {slide.image ? (
                 <Image
                   key={slide.image}
                   src={slide.image}
-                  alt=""
+                  alt={t(slide.eyebrow, locale)}
                   fill
                   priority={index === 0}
-                  sizes="(max-width: 1024px) 0px, 560px"
+                  sizes="(max-width: 640px) 90vw, (max-width: 1024px) 70vw, 560px"
                   className="anim-slow-zoom object-contain drop-shadow-[0_30px_50px_rgba(0,0,0,.35)]"
                 />
               ) : null}
@@ -129,6 +145,7 @@ export function Hero({ slides, locale }: { slides: Slide[]; locale: Locale }) {
                   type="button"
                   onClick={() => go(i)}
                   aria-label={`Slide ${i + 1}`}
+                  data-hero-dot={i}
                   aria-current={i === index}
                   className={cn(
                     "h-1.5 rounded-full transition-all duration-500",
@@ -149,8 +166,8 @@ export function Hero({ slides, locale }: { slides: Slide[]; locale: Locale }) {
       <div className="border-b border-ink-100 bg-white">
         <div className="mx-auto grid max-w-[1480px] grid-cols-2 gap-px bg-ink-100 px-5 sm:px-8 lg:grid-cols-4">
           <Figure value="1977" label={{ en: "Founded in Dubai", ar: "تأسست في دبي" }} locale={locale} />
-          <Figure value="4" label={{ en: "Product ranges", ar: "مجموعات منتجات" }} locale={locale} />
-          <Figure value="24" label={{ en: "Sub-ranges", ar: "مجموعة فرعية" }} locale={locale} />
+          <Figure value={String(ranges.length)} label={{ en: "Product ranges", ar: "مجموعات منتجات" }} locale={locale} />
+          <Figure value={String(subRanges.length)} label={{ en: "Sub-ranges", ar: "مجموعة فرعية" }} locale={locale} />
           <Figure value="DFM" label={{ en: "Listed — ticker UNIKAI", ar: "مدرجة — رمز يونيكاي" }} locale={locale} />
         </div>
       </div>
@@ -164,6 +181,7 @@ function HeroArrow({ onClick, dir }: { onClick: () => void; dir: "prev" | "next"
       type="button"
       onClick={onClick}
       aria-label={dir === "prev" ? "Previous slide" : "Next slide"}
+      data-hero-arrow={dir}
       className="flex h-9 w-9 items-center justify-center rounded-full border border-white/25 text-white/80 backdrop-blur-sm transition-colors hover:border-white/50 hover:bg-white/10 hover:text-white"
     >
       <svg

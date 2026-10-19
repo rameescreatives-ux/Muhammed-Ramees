@@ -105,6 +105,7 @@ export function Chatbot({ locale }: { locale: Locale }) {
         onClick={() => setOpen((v) => !v)}
         aria-label={T("chat.open", locale)}
         aria-expanded={open}
+        data-chat-open
         className={cn(
           "fixed bottom-5 end-5 z-[65] flex h-14 items-center gap-2.5 rounded-full bg-brand-navy px-5 text-white shadow-[0_16px_40px_-16px_rgba(9,1,139,.9)] transition-all duration-400 ease-[cubic-bezier(.22,1,.36,1)] hover:bg-brand-navy-600",
           open && "scale-0 opacity-0",
@@ -127,6 +128,7 @@ export function Chatbot({ locale }: { locale: Locale }) {
             : "pointer-events-none h-0 opacity-0",
         )}
         role="dialog"
+        data-chat-panel
         aria-label={T("chat.title", locale)}
       >
         <header className="flex shrink-0 items-center justify-between bg-brand-navy px-4 py-3.5 text-white">
@@ -145,6 +147,7 @@ export function Chatbot({ locale }: { locale: Locale }) {
             type="button"
             onClick={() => setOpen(false)}
             aria-label={T("nav.close", locale)}
+            data-chat-close
             className="flex h-8 w-8 items-center justify-center rounded-full transition-colors hover:bg-white/15"
           >
             <svg viewBox="0 0 20 20" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.9" strokeLinecap="round">

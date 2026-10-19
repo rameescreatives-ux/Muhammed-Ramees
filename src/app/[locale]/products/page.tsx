@@ -45,8 +45,8 @@ export default async function ProductsPage({
         }
         lead={
           locale === "ar"
-            ? "أربع مجموعات رئيسية تضم ٢٤ مجموعة فرعية — من الألبان المبردة إلى الآيس كريم المجمّد والمشروبات والأغذية الجافة."
-            : "Four ranges spanning 24 sub-ranges — chilled dairy, frozen ice cream, beverages and ambient foods, all from one UAE manufacturer."
+            ? `أربع مجموعات رئيسية تضم ${subRanges.length} مجموعة فرعية — من الألبان المبردة إلى الآيس كريم المجمّد والمشروبات والأغذية الجافة.`
+            : `Four ranges spanning ${subRanges.length} sub-ranges — chilled dairy, frozen ice cream, beverages and ambient foods, all from one UAE manufacturer.`
         }
         crumbs={[{ name: T("nav.products", locale), path: "/products" }]}
       />

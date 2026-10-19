@@ -113,6 +113,7 @@ export function Header({ locale }: { locale: Locale }) {
                   onFocus={openMega}
                   onClick={() => setMegaOpen((v) => !v)}
                   aria-expanded={megaOpen}
+                  data-mega-trigger
                   className={cn(
                     "flex items-center gap-1.5 rounded-full px-3.5 py-2 text-[0.9375rem] font-semibold transition-colors",
                     isActive(item.path) || megaOpen
@@ -168,6 +169,7 @@ export function Header({ locale }: { locale: Locale }) {
               onClick={() => setMobileOpen(true)}
               className="flex h-10 w-10 items-center justify-center rounded-full border border-ink-100 text-ink lg:hidden"
               aria-label={T("nav.menu", locale)}
+              data-menu-open
             >
               <svg viewBox="0 0 20 20" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round">
                 <path d="M3 6h14M3 10h14M3 14h14" />
@@ -179,6 +181,7 @@ export function Header({ locale }: { locale: Locale }) {
         {/* Mega menu */}
         <div
           onMouseEnter={openMega}
+          data-mega-panel
           className={cn(
             "absolute inset-x-0 top-full hidden overflow-hidden border-b border-ink-100 bg-white transition-[max-height,opacity] duration-400 ease-[cubic-bezier(.22,1,.36,1)] lg:block",
             megaOpen ? "max-h-[640px] opacity-100 shadow-[0_30px_60px_-30px_rgba(5,3,58,.35)]" : "pointer-events-none max-h-0 opacity-0",
@@ -305,9 +308,11 @@ function MobileNav({
         open ? "" : "pointer-events-none",
       )}
       aria-hidden={!open}
+      data-drawer
     >
       <div
         onClick={onClose}
+        data-drawer-close
         className={cn(
           "absolute inset-0 bg-brand-navy-900/50 backdrop-blur-sm transition-opacity duration-300",
           open ? "opacity-100" : "opacity-0",
@@ -324,6 +329,7 @@ function MobileNav({
           <button
             type="button"
             onClick={onClose}
+            data-drawer-close
             aria-label="Close"
             className="flex h-10 w-10 items-center justify-center rounded-full border border-ink-100"
           >
@@ -337,6 +343,7 @@ function MobileNav({
           <button
             type="button"
             onClick={() => setExpanded(expanded === "products" ? null : "products")}
+            data-drawer-products
             className="flex w-full items-center justify-between py-3 text-lg font-bold text-ink"
           >
             {T("nav.products", locale)}

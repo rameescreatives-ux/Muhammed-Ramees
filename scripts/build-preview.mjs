@@ -164,6 +164,44 @@ addEventListener("error", function (e) {
     }
   }
 
+  // 3d. Replace React with a plain script.
+  //
+  //     Each exported page carries ~58 KB of inline hydration script. A
+  //     host with a strict content-security policy blocks inline script,
+  //     React never hydrates, and every interactive part — the menus, the
+  //     banner slider, the assistant — is dead on arrival while the page
+  //     still looks fine. That failure is invisible until someone clicks.
+  //
+  //     The markup is already complete, so the framework is not actually
+  //     needed to display anything. Stripping it halves the page weight,
+  //     removes every inline script, and leaves readable HTML. One small
+  //     external file wires the interactions back up.
+  const kb = buildPreviewKnowledge();
+  fs.writeFileSync(path.join(out, "knowledge.js"), kb);
+  fs.copyFileSync(
+    path.join(root, "scripts", "preview-site.js"),
+    path.join(out, "site.js"),
+  );
+
+  for (const f of walk(out)) {
+    if (!f.endsWith(".html")) continue;
+    const depth = path.relative(out, f).split(path.sep).length - 1;
+    const prefix = depth === 0 ? "" : "../".repeat(depth);
+    let t = fs.readFileSync(f, "utf8");
+
+    // Drop every <script> — framework bundles and inline hydration alike.
+    t = t.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, "");
+    // Drop the module preloads that pointed at them.
+    t = t.replace(/<link\b[^>]*rel="preload"[^>]*as="script"[^>]*>/gi, "");
+
+    t = t.replace(
+      "</body>",
+      `<script src="${prefix}knowledge.js" defer></script>` +
+        `<script src="${prefix}site.js" defer></script></body>`,
+    );
+    fs.writeFileSync(f, t);
+  }
+
   // 4. Root index.html IS the English homepage.
   //
   //    Not a redirect. Opening the folder and double-clicking index.html
@@ -290,6 +328,114 @@ addEventListener("error", function (e) {
       ),
     );
   }
+}
+
+/**
+ * The assistant's knowledge base, emitted as a plain script.
+ *
+ * Exactly the passages the server route is allowed to use, so the static
+ * assistant answers from the same approved content and is bound by the
+ * same limits: it cannot state a price, a certification or an export
+ * market, because none of them are in here to state.
+ */
+function buildPreviewKnowledge() {
+  const { ranges, subRanges } = JSON.parse(
+    execSync("node scripts/dump-content.mjs", { encoding: "utf8" }),
+  );
+
+  const P = [];
+  const push = (title, body, href, keywords) =>
+    P.push({ title, body, href, keywords });
+
+  push(
+    "About Unikai",
+    "Unikai Foods PJSC is among the largest and most diversified FMCG companies in the Middle East and North Africa. Established in Dubai in 1977 and inaugurated by the then Ruler of Dubai, Sheikh Rashid bin Saeed Al Maktoum, it produces dairy, ice cream, juice and food products at its UAE facilities.",
+    "en/about/index.html",
+    ["about", "company", "who", "history", "founded", "1977", "unikai", "dubai", "pjsc"],
+  );
+  push(
+    "Contact",
+    "Head office: P.O. Box 6424, Al Quoz Industrial Area, Dubai, UAE. Telephone 800UNIKAI (864524). General enquiries info@unikai.com. Investor relations: Ahmed Bedier, +971 4 507 6866, investor.relations@unikai.com. Careers: careers@unikai.com.",
+    "en/contact/index.html",
+    ["contact", "phone", "email", "address", "office", "call", "reach", "location"],
+  );
+  push(
+    "Export and international distribution",
+    "Unikai supplies international markets through appointed distributors. Export enquiries are handled by the export team, who confirm which products suit your market, the documentation required and the commercial terms. To start, send an export enquiry with your destination country, the products you are interested in, your company details and estimated volumes.",
+    "en/export/index.html",
+    ["export", "import", "importing", "exporting", "international", "overseas", "abroad", "country", "distributor", "distribution", "documentation", "shipping", "customs"],
+  );
+  push(
+    "UAE and Oman distribution, wholesale and retail supply",
+    "Unikai operates an extensive distribution network across the UAE and Oman supplying retail, wholesale and trade customers. For wholesale, retail supply or HORECA enquiries, send a distribution enquiry and the local sales team will respond with the process.",
+    "en/contact/index.html",
+    ["wholesale", "retail", "supply", "buy", "purchase", "order", "stock", "trade", "horeca", "supermarket", "uae", "oman", "distributor", "distribution"],
+  );
+  push(
+    "Quality and certifications",
+    "Unikai products are produced at the company's UAE facilities and pass quality assurance before distribution. Specific certification details are confirmed per product and market by the quality team — ask and we will send the documentation.",
+    "en/quality/index.html",
+    ["quality", "certification", "certified", "halal", "iso", "haccp", "food", "safety", "standard"],
+  );
+  push(
+    "Careers",
+    "Unikai hires across its UAE operations. Applications are made through the careers page. Important: Unikai has not appointed any agent to recruit on its behalf and will never ask candidates for payment. All recruiter email addresses end in @Unikai.com.",
+    "en/careers/index.html",
+    ["career", "careers", "job", "jobs", "vacancy", "hiring", "work", "apply", "cv", "recruitment"],
+  );
+  push(
+    "Investor relations",
+    "Unikai Foods PJSC is listed on the Dubai Financial Market under the ticker UNIKAI. Financial statements, integrated reports, general assembly materials and disclosures are published in the investor relations section.",
+    "en/investor-relations/index.html",
+    ["investor", "investors", "share", "shares", "stock", "dfm", "financial", "results", "dividend", "annual", "report", "shareholder"],
+  );
+
+  for (const r of ranges) {
+    const subs = subRanges.filter((s) => s.range === r.slug);
+    push(
+      `${r.name} range`,
+      `${r.description} Sub-ranges: ${subs.map((s) => s.name).join(", ")}.`,
+      `en/products/${r.slug}/index.html`,
+      [r.slug, ...r.name.toLowerCase().split(/\s+/),
+       ...subs.flatMap((s) => s.name.toLowerCase().split(/\s+/))],
+    );
+  }
+  for (const s of subRanges) {
+    const parent = ranges.find((r) => r.slug === s.range);
+    push(
+      s.name,
+      `${s.name} is part of the Unikai ${parent ? parent.name : ""} range, produced at the company's UAE facilities.`,
+      `en/products/${s.range}/${s.slug}/index.html`,
+      [s.slug, ...s.name.toLowerCase().split(/\s+/)],
+    );
+  }
+
+  const strings = {
+    en: {
+      greeting:
+        "Hello. I can answer questions about Unikai's product ranges, company information and export or distribution process. How can I help?",
+      noAnswer:
+        "I don't have that detail in Unikai's published information. I can put you in touch with the right team — would you like to share your contact details?",
+    },
+    ar: {
+      greeting:
+        "مرحباً. يمكنني الإجابة عن أسئلتك حول مجموعات منتجات يونيكاي ومعلومات الشركة وعملية التصدير أو التوزيع. كيف يمكنني المساعدة؟",
+      noAnswer:
+        "ليس لدي هذه المعلومة ضمن محتوى يونيكاي المنشور. يسعدني توصيلك بالفريق المختص — هل ترغب بمشاركة بيانات التواصل؟",
+    },
+  };
+
+  return (
+    "/* Unikai assistant knowledge base — GENERATED by scripts/build-preview.mjs.\n" +
+    "   Edit src/content/* and rebuild; changes here are overwritten.\n" +
+    "\n" +
+    "   This is the whole universe of facts the assistant may use. It\n" +
+    "   deliberately contains no prices, stock levels, certifications or\n" +
+    "   export markets — it cannot state what it does not hold. */\n" +
+    "window.UNIKAI_KB = " +
+    JSON.stringify({ passages: P, strings }, null, 1) +
+    ";\n"
+  );
 }
 
 let failed = false;
