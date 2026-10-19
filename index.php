@@ -1,3 +1,15 @@
+<?php
+/* ----------------------------------------------------------------------------
+   ShadowX Studios — English home page.
+   The "Selected work" section is generated from data/projects.json, which the
+   admin dashboard at /admin writes. Everything else is plain HTML you can edit.
+   -------------------------------------------------------------------------- */
+require_once __DIR__ . '/includes/projects.php';
+$sx_projects = sx_published_projects();
+$sx_count    = count($sx_projects);
+$sx_words    = [1=>'One',2=>'Two',3=>'Three',4=>'Four',5=>'Five',6=>'Six',7=>'Seven',8=>'Eight',9=>'Nine',10=>'Ten'];
+$sx_heading  = ($sx_words[$sx_count] ?? $sx_count) . ' brand' . ($sx_count === 1 ? '' : 's') . ', built end to end.';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -224,7 +236,7 @@
     <div class="s-head split rv">
       <div>
         <p class="eyebrow">Selected work</p>
-        <h2 class="h-lg">Three brands, built end to end.</h2>
+        <h2 class="h-lg"><?= htmlspecialchars($sx_heading, ENT_QUOTES) ?></h2>
       </div>
       <p class="lede">
         Real projects, real deliverables. Each of these started as a business with no
@@ -232,86 +244,7 @@
       </p>
     </div>
 
-    <!-- CASE 1 — Salkaara -->
-    <article class="case rv">
-      <div class="case-top">
-        <div>
-          <div class="case-meta">
-            <span class="tag live">Brand Identity</span>
-            <span class="tag">Arabic + English</span>
-            <span class="tag">F&amp;B</span>
-          </div>
-          <h3>Salkaara — Arabic Cuisine</h3>
-          <p class="yr">Restaurant brand · Full identity system</p>
-        </div>
-        <div class="case-body">
-          <p>A charcoal-grill restaurant opening into a category where almost every competitor uses the same red-and-orange template. The brief was warmth and heritage without looking dated.</p>
-          <p>The wordmark takes its sweeping terminals from Arabic calligraphy while staying readable to English speakers, and a second lockup renders the same name in an Arabic-styled form so both markets get a mark that feels native rather than translated. A skewer hidden in the rising steam does the storytelling that an obvious grill illustration would have flattened.</p>
-          <div class="did">
-            <span>Logo system</span><span>Arabic lockup</span><span>Colour &amp; type</span>
-            <span>Menu design</span><span>Packaging</span><span>Signage</span><span>Uniform</span>
-          </div>
-        </div>
-      </div>
-      <div class="case-shots">
-        <figure class="shot"><img src="work/salkaara-identity.webp" alt="Salkaara Arabic Cuisine logo — emerald green wordmark with gold Arabian pattern ring and grill skewer motif" width="900" height="675" loading="lazy"></figure>
-        <figure class="shot"><img src="work/salkaara-applications.webp" alt="Salkaara brand applications — menu folder, takeaway mandi box packaging and staff uniform" width="900" height="675" loading="lazy"></figure>
-      </div>
-    </article>
-
-    <!-- CASE 2 — Heidi -->
-    <article class="case rv">
-      <div class="case-top">
-        <div>
-          <div class="case-meta">
-            <span class="tag live">Brand Identity</span>
-            <span class="tag">Packaging</span>
-            <span class="tag">Beauty</span>
-          </div>
-          <h3>Heidi — Hair and Glow</h3>
-          <p class="yr">Hair &amp; skincare brand · Identity and packaging</p>
-        </div>
-        <div class="case-body">
-          <p>A natural hair and skincare line launching into a category where every shelf already looks botanical. Green and a leaf are table stakes; the job was making them feel expensive.</p>
-          <p>The answer was restraint plus one gold accent — a rounded, soft wordmark for the femininity and warmth the category expects, a leaf doing the natural signal quietly, and a glow mark on the "i" that carries the second half of the name. Deep forest green became the background rather than the logo, so the gold reads as luxury instead of decoration across bottles, droppers and cartons.</p>
-          <div class="did">
-            <span>Logo system</span><span>Mono &amp; secondary marks</span><span>Colour spec</span>
-            <span>Bottle labels</span><span>Carton design</span><span>Campaign creative</span>
-          </div>
-        </div>
-      </div>
-      <div class="case-shots">
-        <figure class="shot"><img src="work/heidi-identity.webp" alt="Heidi Hair and Glow logo — gold wordmark with leaf and glow mark on dark foliage" width="900" height="675" loading="lazy"></figure>
-        <figure class="shot"><img src="work/heidi-packaging.webp" alt="Heidi product packaging — amber dropper bottles with deep green labels" width="900" height="675" loading="lazy"></figure>
-      </div>
-    </article>
-
-    <!-- CASE 3 — FreshRoutes -->
-    <article class="case rv">
-      <div class="case-top">
-        <div>
-          <div class="case-meta">
-            <span class="tag live">Company Profile</span>
-            <span class="tag">Brand Identity</span>
-            <span class="tag">FMCG</span>
-          </div>
-          <h3>FreshRoutes International</h3>
-          <p class="yr">UAE produce distributor · Identity and 8-page profile</p>
-        </div>
-        <div class="case-body">
-          <p>A new UAE fresh-produce distributor selling to supermarkets, hotels and wholesalers — buyers who decide from a document before they ever meet you.</p>
-          <p>Photography would have meant stock images of crates. Instead the whole profile runs on a commissioned illustration system that carries farm, fleet and warehouse through one consistent world, so the supply chain reads as a single story. The result is a document that looks like an established operation rather than a company in its first year.</p>
-          <div class="did">
-            <span>Logo design</span><span>Illustration system</span><span>8-page profile</span>
-            <span>Supply-chain diagrams</span><span>Print &amp; digital artwork</span>
-          </div>
-        </div>
-      </div>
-      <div class="case-shots">
-        <figure class="shot"><img src="work/freshroutes-cover.webp" alt="FreshRoutes International company profile cover with logo and illustrated produce artwork" width="900" height="675" loading="lazy"></figure>
-        <figure class="shot"><img src="work/freshroutes-spread.webp" alt="FreshRoutes company profile interior spread showing the product range" width="900" height="675" loading="lazy"></figure>
-      </div>
-    </article>
+    <?= sx_render_cases($sx_projects, 'en', '') ?>
 
     <div style="margin-top:clamp(40px,5vw,64px); text-align:center" class="rv">
       <p class="lede" style="margin-inline:auto; margin-bottom:24px">

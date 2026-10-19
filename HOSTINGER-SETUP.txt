@@ -1,0 +1,37 @@
+================================================================
+ SHADOWX STUDIOS — QUICK START (print this / keep it handy)
+================================================================
+
+1. UPLOAD
+   hPanel -> File Manager -> public_html
+   Upload EVERYTHING inside this folder (not the folder itself).
+   index.php must sit directly inside public_html.
+
+2. PERMISSIONS  (right-click -> Permissions in File Manager)
+   data/      -> 755
+   uploads/   -> 755
+
+3. PHP VERSION
+   hPanel -> Advanced -> PHP Configuration -> 8.0 or newer
+
+4. SSL
+   hPanel -> SSL -> install the free certificate.
+   .htaccess already forces https.
+
+5. SIGN IN
+   https://yourdomain.com/admin/
+   Username: admin
+   Password: the one you were given
+
+6. CHANGE THE PASSWORD IMMEDIATELY
+   Top bar -> "Change password".
+
+----------------------------------------------------------------
+IF SAVING FAILS
+  "Could not write data/projects.json"  -> set data/ to 755
+  "uploads folder is not writable"      -> set uploads/ to 755
+
+BACKUP = these two things only:
+  data/projects.json
+  uploads/
+================================================================

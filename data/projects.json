@@ -1,0 +1,167 @@
+[
+    {
+        "id": "a1f3c7d920e84b60",
+        "order": 1,
+        "published": true,
+        "title": "Salkaara — Arabic Cuisine",
+        "subtitle": "Restaurant brand · Full identity system",
+        "tags": [
+            "Brand Identity",
+            "Arabic + English",
+            "F&B"
+        ],
+        "body": [
+            "A charcoal-grill restaurant opening into a category where almost every competitor uses the same red-and-orange template. The brief was warmth and heritage without looking dated.",
+            "The wordmark takes its sweeping terminals from Arabic calligraphy while staying readable to English speakers, and a second lockup renders the same name in an Arabic-styled form so both markets get a mark that feels native rather than translated. A skewer hidden in the rising steam does the storytelling that an obvious grill illustration would have flattened."
+        ],
+        "deliverables": [
+            "Logo system",
+            "Arabic lockup",
+            "Colour & type",
+            "Menu design",
+            "Packaging",
+            "Signage",
+            "Uniform"
+        ],
+        "title_ar": "صلكارا — المطبخ العربي",
+        "subtitle_ar": "علامة مطعم · نظام هوية متكامل",
+        "tags_ar": [
+            "هوية بصرية",
+            "عربي وإنجليزي",
+            "مطاعم"
+        ],
+        "body_ar": [
+            "مطعم مشاوي على الفحم يدخل فئة يستخدم فيها كل المنافسين تقريبًا القالب الأحمر والبرتقالي نفسه. كان المطلوب دفئًا وأصالة دون مظهر قديم.",
+            "استعار الشعار انحناءاته ونهاياته من الخط العربي مع بقائه مقروءًا للقارئ الإنجليزي، وصُمِّمت صيغة ثانية تكتب الاسم نفسه بطابع عربي، فحصل كلا الجمهورين على علامة تبدو أصيلة لا مترجَمة. وسيخ مخفيّ داخل البخار المتصاعد يروي القصة التي كان رسم شواية صريح سيفقدها."
+        ],
+        "deliverables_ar": [
+            "نظام الشعار",
+            "الصيغة العربية",
+            "الألوان والخطوط",
+            "قائمة الطعام",
+            "التغليف",
+            "اللافتات",
+            "الزي"
+        ],
+        "images": [
+            {
+                "src": "work/salkaara-identity.webp",
+                "alt": "Salkaara Arabic Cuisine logo — emerald green wordmark with gold Arabian pattern ring and grill skewer motif"
+            },
+            {
+                "src": "work/salkaara-applications.webp",
+                "alt": "Salkaara brand applications — menu folder, takeaway mandi box packaging and staff uniform"
+            }
+        ],
+        "created_at": "2026-10-12T00:00:00+00:00",
+        "updated_at": "2026-10-19T00:00:00+00:00"
+    },
+    {
+        "id": "b2e4d8fa31c95071",
+        "order": 2,
+        "published": true,
+        "title": "Heidi — Hair and Glow",
+        "subtitle": "Hair & skincare brand · Identity and packaging",
+        "tags": [
+            "Brand Identity",
+            "Packaging",
+            "Beauty"
+        ],
+        "body": [
+            "A natural hair and skincare line launching into a category where every shelf already looks botanical. Green and a leaf are table stakes; the job was making them feel expensive.",
+            "The answer was restraint plus one gold accent — a rounded, soft wordmark for the femininity and warmth the category expects, a leaf doing the natural signal quietly, and a glow mark on the \"i\" that carries the second half of the name. Deep forest green became the background rather than the logo, so the gold reads as luxury instead of decoration across bottles, droppers and cartons."
+        ],
+        "deliverables": [
+            "Logo system",
+            "Mono & secondary marks",
+            "Colour spec",
+            "Bottle labels",
+            "Carton design",
+            "Campaign creative"
+        ],
+        "title_ar": "هايدي — للشعر والنضارة",
+        "subtitle_ar": "علامة عناية بالشعر والبشرة · هوية وتغليف",
+        "tags_ar": [
+            "هوية بصرية",
+            "تغليف",
+            "عناية"
+        ],
+        "body_ar": [
+            "خط منتجات طبيعية يدخل فئة تبدو فيها كل الرفوف نباتية أصلًا. الأخضر والورقة شرط أدنى لا ميزة؛ التحدي كان جعلهما يبدوان فاخرين.",
+            "كان الحل في الاقتصاد مع لمسة ذهبية واحدة — حروف دائرية ناعمة تمنح الدفء والأنوثة التي تتوقعها الفئة، وورقة تؤدي الإشارة الطبيعية بهدوء، وومضة فوق حرف الـ i تحمل النصف الثاني من الاسم. جعلنا الأخضر الغامق خلفية لا شعارًا، فصار الذهبي يُقرأ كفخامة لا كزخرفة على العبوات والقطّارات والعلب."
+        ],
+        "deliverables_ar": [
+            "نظام الشعار",
+            "الصيغ الأحادية",
+            "مواصفات الألوان",
+            "ملصقات العبوات",
+            "تصميم العلب",
+            "مواد الحملة"
+        ],
+        "images": [
+            {
+                "src": "work/heidi-identity.webp",
+                "alt": "Heidi Hair and Glow logo — gold wordmark with leaf and glow mark on dark foliage"
+            },
+            {
+                "src": "work/heidi-packaging.webp",
+                "alt": "Heidi product packaging — amber dropper bottles with deep green labels"
+            }
+        ],
+        "updated_at": "2026-10-19T06:32:33+00:00",
+        "created_at": "2026-10-12T00:00:00+00:00"
+    },
+    {
+        "id": "c3a5e9fb42d16182",
+        "order": 3,
+        "published": true,
+        "title": "FreshRoutes International",
+        "subtitle": "UAE produce distributor · Identity and 8-page profile",
+        "tags": [
+            "Company Profile",
+            "Brand Identity",
+            "FMCG"
+        ],
+        "body": [
+            "A new UAE fresh-produce distributor selling to supermarkets, hotels and wholesalers — buyers who decide from a document before they ever meet you.",
+            "Photography would have meant stock images of crates. Instead the whole profile runs on a commissioned illustration system that carries farm, fleet and warehouse through one consistent world, so the supply chain reads as a single story. The result is a document that looks like an established operation rather than a company in its first year."
+        ],
+        "deliverables": [
+            "Logo design",
+            "Illustration system",
+            "8-page profile",
+            "Supply-chain diagrams",
+            "Print & digital artwork"
+        ],
+        "title_ar": "فريش روتس إنترناشونال",
+        "subtitle_ar": "موزّع خضار وفواكه في الإمارات · هوية وبروفايل من ٨ صفحات",
+        "tags_ar": [
+            "بروفايل شركة",
+            "هوية بصرية",
+            "أغذية"
+        ],
+        "body_ar": [
+            "شركة توزيع منتجات طازجة جديدة تبيع للسوبرماركت والفنادق وتجار الجملة — مشترون يتخذون قرارهم من مستند قبل أن يقابلوك.",
+            "كان التصوير سيعني صور مخزون لصناديق خضار. بدل ذلك بُني البروفايل كله على نظام رسوم توضيحية مخصّص ينقل المزرعة والأسطول والمستودع في عالم بصري واحد، فتُقرأ سلسلة التوريد كقصة متصلة. والنتيجة مستند يبدو لشركة راسخة لا لشركة في عامها الأول."
+        ],
+        "deliverables_ar": [
+            "تصميم الشعار",
+            "نظام الرسوم",
+            "بروفايل ٨ صفحات",
+            "مخططات التوريد",
+            "ملفات طباعة ورقمية"
+        ],
+        "images": [
+            {
+                "src": "work/freshroutes-cover.webp",
+                "alt": "FreshRoutes International company profile cover with logo and illustrated produce artwork"
+            },
+            {
+                "src": "work/freshroutes-spread.webp",
+                "alt": "FreshRoutes company profile interior spread showing the product range"
+            }
+        ],
+        "created_at": "2026-10-12T00:00:00+00:00",
+        "updated_at": "2026-10-19T00:00:00+00:00"
+    }
+]

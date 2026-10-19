@@ -1,176 +1,177 @@
-# ShadowX Studios — website
+# ShadowX Studios — website + admin dashboard
 
-Static, bilingual (English + Arabic) marketing site for ShadowX Studios, Abu Dhabi.
-No build step, no framework, no npm install. Open the folder in VS Code and edit.
+Bilingual (English / Arabic) site for ShadowX Studios, Abu Dhabi, with a
+password-protected admin area for managing the projects shown in the Work
+section.
+
+Built for **Hostinger shared hosting** — PHP 8, no database, no build step.
+Open the folder in VS Code and edit.
 
 ---
 
-## Run it locally
+## 1. Upload to Hostinger
 
-Open `index.html` in a browser — that works for most things, but the Arabic page
-and blog use absolute paths (`/assets/...`), so for a proper local preview run a
-tiny server from the project root:
+1. Log in to Hostinger → **hPanel → File Manager** (or use FTP / SFTP).
+2. Open `public_html`.
+3. Upload **everything inside this folder** (not the folder itself) so that
+   `index.php` sits directly in `public_html`.
+4. Set folder permissions — in File Manager, right-click → Permissions:
+
+   | Folder | Permission | Why |
+   |---|---|---|
+   | `data/` | **755** | PHP writes `projects.json` here |
+   | `uploads/` | **755** | PHP writes uploaded images here |
+   | `includes/` | 755 | only needs to be readable |
+
+   If saving ever fails with *"Could not write data/projects.json"*, this is
+   almost always the cause.
+
+5. Make sure PHP is **8.0 or newer**: hPanel → Advanced → PHP Configuration.
+6. Visit `https://yourdomain.com/admin/` and sign in.
+
+> **Vercel note:** Vercel does not run PHP, so the admin will not work there.
+> Hostinger (or any normal PHP host) is the home for this version.
+
+---
+
+## 2. Signing in
+
+```
+URL:       https://yourdomain.com/admin/
+Username:  admin
+Password:  (the one you were given)
+```
+
+**Change the password as soon as you're in** — *Change password* in the top
+bar. The one you have now was sent over chat, so treat it as temporary.
+
+The password is never stored as plain text. `includes/config.php` holds only a
+bcrypt hash, so even someone who downloads that file cannot sign in with it.
+
+Forgot it? Run this on your own machine and paste the result into
+`ADMIN_HASH` in `includes/config.php`:
 
 ```bash
-# Python (already on macOS and most Linux)
-python3 -m http.server 3000
-
-# or Node
-npx serve .
-```
-
-Then open <http://localhost:3000>.
-
-In VS Code, the **Live Server** extension also works: right-click `index.html` →
-*Open with Live Server*.
-
----
-
-## What's in here
-
-```
-shadowx/
-├── index.html                   English home page
-├── ar/index.html                Arabic home page (RTL)
-├── blog/
-│   ├── index.html               Insights listing
-│   ├── branding-cost-uae/
-│   ├── what-is-in-a-brand-book/
-│   ├── bilingual-arabic-english-branding/
-│   ├── when-to-rebrand/
-│   ├── agency-freelancer-or-studio/
-│   └── logo-only-or-full-branding/
-├── assets/
-│   ├── css/
-│   │   ├── main.css             everything — tokens at the top
-│   │   ├── blog.css             article + blog index styles
-│   │   └── rtl.css              Arabic / right-to-left overrides
-│   ├── js/
-│   │   ├── config.js            ← phone, email, domain, Supabase keys
-│   │   ├── config-ar.js         Arabic chatbot wording
-│   │   ├── main.js              nav, reveal, form submission
-│   │   └── chatbot.js           the lead chatbot
-│   └── img/                     logo files
-├── work/                        project images (case studies)
-├── supabase/
-│   ├── schema.sql               run this once in Supabase
-│   └── functions/notify-lead/   optional email notifications
-├── robots.txt
-├── sitemap.xml
-├── site.webmanifest
-└── vercel.json
+php -r 'echo password_hash("your new password", PASSWORD_BCRYPT, ["cost"=>12]);'
 ```
 
 ---
 
-## Things you'll want to change first
+## 3. Using the dashboard
+
+| What you want to do | How |
+|---|---|
+| Add a project | **+ Add project**, fill in the English tab, save |
+| Edit one | **Edit** on its row |
+| Reorder | Drag the **⠿** handle — the website follows this order |
+| Take one off the site | Click **Live** → it becomes **Hidden** (nothing is deleted) |
+| Delete permanently | **Delete** — also removes its uploaded images |
+| Add Arabic | The **العربية** tab. Anything blank falls back to English |
+| Add images | **Images** tab — drag and drop, or choose files |
+
+Notes that matter:
+
+- **The first two images** are the ones shown on the site, side by side. Extra
+  images are stored but not displayed.
+- **Each line in the Description** becomes its own paragraph.
+- **Tags and deliverables** are comma-separated. The first tag is highlighted
+  orange.
+- **Alt text** on images is worth filling in — Google reads it, and it is what
+  a screen-reader user hears.
+- Changes are live the moment you hit save. No publish step, no cache to clear.
+
+---
+
+## 4. Where everything lives
+
+```
+public_html/
+├── index.php              English home page  (Work section is generated)
+├── ar/index.php           Arabic home page   (Work section is generated)
+├── admin/                 the dashboard
+│   ├── index.php          project list + editor
+│   ├── login.php          sign in
+│   ├── logout.php
+│   ├── api.php            all save/delete/upload actions
+│   ├── admin.css
+│   └── admin.js
+├── includes/
+│   ├── config.php         ← admin username + password hash, upload limits
+│   ├── auth.php           sessions, CSRF, login throttling
+│   ├── projects.php       reads/writes projects.json, renders the Work section
+│   └── upload.php         image validation and resizing
+├── data/
+│   └── projects.json      ← every project. Back this file up.
+├── uploads/               images added through the dashboard
+├── work/                  the three original project images
+├── blog/                  six articles (plain HTML)
+├── assets/css|js|img/     site styles, scripts, logos
+├── .htaccess              security headers, clean URLs, caching
+├── robots.txt, sitemap.xml
+└── supabase/              lead-capture schema (separate from the admin)
+```
+
+### Things you'll most likely want to change
 
 | What | Where |
 |---|---|
-| Phone, email, domain, Supabase keys | `assets/js/config.js` |
-| Brand colours, fonts, spacing | `assets/css/main.css` — section 1, `:root` |
-| Prices | `index.html` (pricing section) **and** `ar/index.html` **and** `assets/js/config.js` |
-| Project images | replace files in `work/`, keep the same names |
-| Your headshot | add `assets/img/ramees.jpg`, then swap the placeholder in the Founder section |
-| Chatbot questions | `assets/js/chatbot.js` → the `SCRIPT` array near the top |
-| Arabic chatbot questions | `assets/js/config-ar.js` |
+| Phone, email, Supabase keys | `assets/js/config.js` |
+| Brand colours, fonts, spacing | `assets/css/main.css` → `:root` at the top |
+| Prices | `index.php`, `ar/index.php`, and `assets/js/config.js` |
+| Admin password | the dashboard, or `includes/config.php` |
+| Everything else on the page | directly in `index.php` / `ar/index.php` |
 
-Every section in the HTML starts with a comment naming it — search for
+Each section of the page starts with an HTML comment naming it — search for
 `======= PRICING =======` and so on.
 
 ---
 
-## Connecting Supabase (stores every lead)
+## 5. Backups
 
-Without this the site still works; the chatbot still hands off to WhatsApp.
-Supabase just gives you a permanent record so nothing gets lost.
+Everything that changes lives in two places:
 
-1. Create a project at <https://supabase.com> (free tier is plenty).
-2. **SQL Editor → New query** → paste all of `supabase/schema.sql` → **Run**.
-3. **Project Settings → API** → copy the *Project URL* and the *anon public* key.
-4. Paste both into `assets/js/config.js`:
+- `data/projects.json` — the project content
+- `uploads/` — the images you added
 
-```js
-supabaseUrl: 'https://xxxxxxxxxxxx.supabase.co',
-supabaseAnonKey: 'eyJhbGciOi...',
-```
-
-5. Redeploy. New leads appear in **Table Editor → leads**.
-
-The anon key is safe to put in the page: row-level security in the schema lets
-the public insert a lead and nothing else. Nobody can read your leads without
-signing in.
-
-### Email notifications (optional)
-
-See the comment block at the top of `supabase/functions/notify-lead/index.ts`.
-It needs one free Resend API key. Until you set it up, leads are stored and sent
-to WhatsApp but not emailed.
+Copy those two and you have a complete backup. `projects.json` is plain,
+readable JSON, so you can also open it in VS Code and edit it by hand.
 
 ---
 
-## Deploying to Vercel
+## 6. Running it locally
 
-Already connected to GitHub? Push, and Vercel builds automatically.
-
-Fresh setup:
+You need PHP installed (`php -v` to check).
 
 ```bash
-git init
-git add .
-git commit -m "ShadowX Studios website"
-git branch -M main
-git remote add origin https://github.com/<you>/shadowx-studios.git
-git push -u origin main
+cd /path/to/this/folder
+php -S localhost:8000
 ```
 
-Then in Vercel: **Add New → Project → Import** the repo.
-Framework preset: **Other**. Build command: *none*. Output directory: `.`
+Then open <http://localhost:8000> and <http://localhost:8000/admin/>.
 
-`vercel.json` already sets clean URLs, trailing slashes, cache headers and
-security headers.
-
-### When you buy a real domain
-
-1. Add it in Vercel → **Settings → Domains**.
-2. Find and replace `https://shadowx-studios.vercel.app` across the project —
-   it appears in the canonical tags, `hreflang`, Open Graph tags, JSON-LD,
-   `robots.txt` and `sitemap.xml`.
-3. Update `domain` in `assets/js/config.js`.
+Opening `index.php` directly as a file will **not** work — PHP has to run it.
 
 ---
 
-## SEO notes
+## 7. Security that's already in place
 
-Already done:
+- Password stored as a bcrypt hash, never in plain text
+- Sessions are HTTP-only, SameSite=Lax, and expire after 2 hours idle
+- Session ID regenerated on login (blocks session fixation)
+- CSRF token required on every action that changes data
+- 6 failed logins → locked out for 15 minutes
+- Uploads are checked by reading the file's actual bytes, not its name
+- `uploads/` has PHP execution switched off, so a disguised script cannot run
+- Filenames are generated by the server; nothing from the browser is trusted
+- `data/`, `includes/` and `projects.json` are blocked from direct web access
+- `/admin/` is marked `noindex` and blocked in `robots.txt`
+- Writes to `projects.json` are atomic and locked, so a save can't corrupt it
 
-- Unique title, description and keywords per page
-- Canonical URLs and `hreflang` between English and Arabic
-- Open Graph and Twitter card tags
-- JSON-LD: `ProfessionalService`, `Person`, `WebSite`, `FAQPage`, `OfferCatalog`
-  with real prices, `BlogPosting` on every article
-- `areaServed` covering the UAE and the five other GCC countries
-- `robots.txt` explicitly allowing the AI crawlers (GPTBot, PerplexityBot,
-  ClaudeBot, Google-Extended) — that's how the articles get cited
-- `sitemap.xml` with language alternates
+Worth doing yourself:
 
-Still worth doing yourself:
-
-1. **Create a Google Business Profile** for Abu Dhabi. Biggest single local-SEO
-   lever available and it's free.
-2. **Submit the sitemap** in Google Search Console and Bing Webmaster Tools.
-3. **Keep publishing.** The six articles target the questions GCC founders
-   actually search. More of those is what moves rankings.
-4. **Collect Google reviews.** They feed both local ranking and trust.
-
----
-
-## Accessibility and performance
-
-- Keyboard navigable, visible focus rings, `aria-*` on nav, drawer and chat
-- Respects `prefers-reduced-motion`
-- No render-blocking JS; images lazy-loaded below the fold
-- Only external request is Google Fonts
+1. Change the password (above).
+2. Turn on free SSL in hPanel → SSL. The `.htaccess` already forces HTTPS.
+3. Keep PHP on a supported version.
 
 ---
 

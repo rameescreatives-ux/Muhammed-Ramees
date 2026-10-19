@@ -1,0 +1,3 @@
+# Nothing in /data may ever be fetched over the web.
+# It is read and written by PHP only.
+Require all denied

@@ -1,3 +1,14 @@
+<?php
+/* ----------------------------------------------------------------------------
+   ShadowX Studios — الصفحة العربية.
+   قسم "مختارات من أعمالنا" يُولَّد من data/projects.json عبر لوحة التحكم /admin.
+   -------------------------------------------------------------------------- */
+require_once __DIR__ . '/../includes/projects.php';
+$sx_projects = sx_published_projects();
+$sx_count    = count($sx_projects);
+$sx_words    = [1=>'علامة واحدة',2=>'علامتان',3=>'ثلاث علامات',4=>'أربع علامات',5=>'خمس علامات',6=>'ست علامات'];
+$sx_heading  = ($sx_words[$sx_count] ?? ($sx_count . ' علامات')) . ' بُنيت بالكامل.';
+?>
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -207,90 +218,14 @@
     <div class="s-head split rv">
       <div>
         <p class="eyebrow">مختارات من أعمالنا</p>
-        <h2 class="h-lg">ثلاث علامات بُنيت بالكامل.</h2>
+        <h2 class="h-lg"><?= htmlspecialchars($sx_heading, ENT_QUOTES) ?></h2>
       </div>
       <p class="lede">
         مشاريع حقيقية ومخرجات حقيقية. كل واحدة منها بدأت كشركة بلا هوية بصرية على الإطلاق.
       </p>
     </div>
 
-    <article class="case rv">
-      <div class="case-top">
-        <div>
-          <div class="case-meta">
-            <span class="tag live">هوية بصرية</span>
-            <span class="tag">عربي وإنجليزي</span>
-            <span class="tag">مطاعم</span>
-          </div>
-          <h3>صلكارا — المطبخ العربي</h3>
-          <p class="yr">علامة مطعم · نظام هوية متكامل</p>
-        </div>
-        <div class="case-body">
-          <p>مطعم مشاوي على الفحم يدخل فئة يستخدم فيها كل المنافسين تقريبًا القالب الأحمر والبرتقالي نفسه. كان المطلوب دفئًا وأصالة دون مظهر قديم.</p>
-          <p>استعار الشعار انحناءاته ونهاياته من الخط العربي مع بقائه مقروءًا للقارئ الإنجليزي، وصُمِّمت صيغة ثانية تكتب الاسم نفسه بطابع عربي، فحصل كلا الجمهورين على علامة تبدو أصيلة لا مترجَمة. وسيخ مخفيّ داخل البخار المتصاعد يروي القصة التي كان رسم شواية صريح سيفقدها.</p>
-          <div class="did">
-            <span>نظام الشعار</span><span>الصيغة العربية</span><span>الألوان والخطوط</span>
-            <span>قائمة الطعام</span><span>التغليف</span><span>اللافتات</span><span>الزي</span>
-          </div>
-        </div>
-      </div>
-      <div class="case-shots">
-        <figure class="shot"><img src="/work/salkaara-identity.webp" alt="شعار صلكارا للمطبخ العربي — كلمة بالأخضر الزمردي داخل إطار ذهبي بزخرفة عربية" width="900" height="675" loading="lazy"></figure>
-        <figure class="shot"><img src="/work/salkaara-applications.webp" alt="تطبيقات هوية صلكارا — قائمة الطعام وعلبة المندي وزي الموظفين" width="900" height="675" loading="lazy"></figure>
-      </div>
-    </article>
-
-    <article class="case rv">
-      <div class="case-top">
-        <div>
-          <div class="case-meta">
-            <span class="tag live">هوية بصرية</span>
-            <span class="tag">تغليف</span>
-            <span class="tag">عناية</span>
-          </div>
-          <h3>هايدي — للشعر والنضارة</h3>
-          <p class="yr">علامة عناية بالشعر والبشرة · هوية وتغليف</p>
-        </div>
-        <div class="case-body">
-          <p>خط منتجات طبيعية يدخل فئة تبدو فيها كل الرفوف نباتية أصلًا. الأخضر والورقة شرط أدنى لا ميزة؛ التحدي كان جعلهما يبدوان فاخرين.</p>
-          <p>كان الحل في الاقتصاد مع لمسة ذهبية واحدة — حروف دائرية ناعمة تمنح الدفء والأنوثة التي تتوقعها الفئة، وورقة تؤدي الإشارة الطبيعية بهدوء، وومضة فوق حرف الـ i تحمل النصف الثاني من الاسم. جعلنا الأخضر الغامق خلفية لا شعارًا، فصار الذهبي يُقرأ كفخامة لا كزخرفة على العبوات والقطّارات والعلب.</p>
-          <div class="did">
-            <span>نظام الشعار</span><span>الصيغ الأحادية</span><span>مواصفات الألوان</span>
-            <span>ملصقات العبوات</span><span>تصميم العلب</span><span>مواد الحملة</span>
-          </div>
-        </div>
-      </div>
-      <div class="case-shots">
-        <figure class="shot"><img src="/work/heidi-identity.webp" alt="شعار هايدي — كلمة ذهبية مع ورقة وومضة على خلفية أوراق داكنة" width="900" height="675" loading="lazy"></figure>
-        <figure class="shot"><img src="/work/heidi-packaging.webp" alt="تغليف منتجات هايدي — عبوات قطّارة كهرمانية بملصقات خضراء غامقة" width="900" height="675" loading="lazy"></figure>
-      </div>
-    </article>
-
-    <article class="case rv">
-      <div class="case-top">
-        <div>
-          <div class="case-meta">
-            <span class="tag live">بروفايل شركة</span>
-            <span class="tag">هوية بصرية</span>
-            <span class="tag">أغذية</span>
-          </div>
-          <h3>فريش روتس إنترناشونال</h3>
-          <p class="yr">موزّع خضار وفواكه في الإمارات · هوية وبروفايل من ٨ صفحات</p>
-        </div>
-        <div class="case-body">
-          <p>شركة توزيع منتجات طازجة جديدة تبيع للسوبرماركت والفنادق وتجار الجملة — مشترون يتخذون قرارهم من مستند قبل أن يقابلوك.</p>
-          <p>كان التصوير سيعني صور مخزون لصناديق خضار. بدل ذلك بُني البروفايل كله على نظام رسوم توضيحية مخصّص ينقل المزرعة والأسطول والمستودع في عالم بصري واحد، فتُقرأ سلسلة التوريد كقصة متصلة. والنتيجة مستند يبدو لشركة راسخة لا لشركة في عامها الأول.</p>
-          <div class="did">
-            <span>تصميم الشعار</span><span>نظام الرسوم</span><span>بروفايل ٨ صفحات</span>
-            <span>مخططات التوريد</span><span>ملفات طباعة ورقمية</span>
-          </div>
-        </div>
-      </div>
-      <div class="case-shots">
-        <figure class="shot"><img src="/work/freshroutes-cover.webp" alt="غلاف بروفايل شركة فريش روتس مع الشعار ورسوم توضيحية للمنتجات" width="900" height="675" loading="lazy"></figure>
-        <figure class="shot"><img src="/work/freshroutes-spread.webp" alt="صفحة داخلية من بروفايل فريش روتس تعرض تشكيلة المنتجات" width="900" height="675" loading="lazy"></figure>
-      </div>
-    </article>
+<?= sx_render_cases($sx_projects, 'ar', '/') ?>
 
     <div style="margin-top:clamp(40px,5vw,64px); text-align:center" class="rv">
       <a href="https://www.behance.net/gallery/229529881/Portfolio" target="_blank" rel="noopener" class="btn btn-line btn-lg">

@@ -3,6 +3,10 @@
 
 User-agent: *
 Allow: /
+Disallow: /admin/
+Disallow: /data/
+Disallow: /includes/
+
 
 # AI crawlers — explicitly welcome. These are how ChatGPT, Perplexity,
 # Claude and Gemini find and cite your articles. Leave them allowed.

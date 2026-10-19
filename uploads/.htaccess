@@ -1,0 +1,16 @@
+# Images only. Nothing in here is ever executed as code, which means a
+# disguised script that somehow got uploaded still cannot run.
+php_flag engine off
+<IfModule mod_php.c>
+  php_flag engine off
+</IfModule>
+RemoveHandler .php .phtml .php3 .php4 .php5 .php7 .php8 .phps
+RemoveType .php .phtml .php3 .php4 .php5 .php7 .php8 .phps
+AddType text/plain .php .phtml .php3 .php4 .php5 .php7 .php8 .phps
+
+<FilesMatch "\.(jpe?g|png|webp|gif|avif)$">
+  Require all granted
+</FilesMatch>
+<FilesMatch "\.(?!jpe?g$|png$|webp$|gif$|avif$)[^.]*$">
+  Require all denied
+</FilesMatch>
