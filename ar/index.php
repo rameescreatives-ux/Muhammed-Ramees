@@ -51,6 +51,13 @@ $sx_heading  = ($sx_words[$sx_count] ?? ($sx_count . ' علامات')) . ' بُ�
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script>
+/* Applies the saved theme before the page paints. Keep this inline and keep it
+   in <head> — moving it to a file reintroduces the flash of the wrong theme. */
+(function(){try{var t=localStorage.getItem('sx-theme');
+if(!t)t=matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';
+document.documentElement.setAttribute('data-theme',t);}catch(e){}})();
+</script>
 <link rel="stylesheet" href="../assets/css/main.css">
 <link rel="stylesheet" href="../assets/css/rtl.css">
 </head>
@@ -66,7 +73,7 @@ $sx_heading  = ($sx_words[$sx_count] ?? ($sx_count . ' علامات')) . ' بُ�
 <header id="siteHeader">
   <div class="wrap nav">
     <a href="index.php" class="brand" aria-label="ShadowX Studios — الصفحة الرئيسية">
-      <img src="../assets/img/shadowx-wordmark-light.png" alt="ShadowX Studios" width="520" height="161">
+      <img class="logo-on-dark" src="../assets/img/shadowx-wordmark-light.png" alt="ShadowX Studios" width="520" height="161"><img class="logo-on-light" src="../assets/img/shadowx-wordmark-dark.png" alt="ShadowX Studios" width="520" height="161">
     </a>
 
     <nav class="nav-links" aria-label="التنقل الرئيسي">
@@ -78,6 +85,10 @@ $sx_heading  = ($sx_words[$sx_count] ?? ($sx_count . ' علامات')) . ' بُ�
     </nav>
 
     <div class="nav-right">
+      <button class="theme-btn" id="themeBtn" type="button" aria-label="التبديل بين الوضع الفاتح والداكن">
+        <svg class="i-sun" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.8"/><path d="M12 2.4v2.3M12 19.3v2.3M4.2 4.2l1.7 1.7M18.1 18.1l1.7 1.7M2.4 12h2.3M19.3 12h2.3M4.2 19.8l1.7-1.7M18.1 5.9l1.7-1.7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <svg class="i-moon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.5 14.3A8.6 8.6 0 0 1 9.7 3.5a8.6 8.6 0 1 0 10.8 10.8Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+      </button>
       <a href="../index.php" class="lang" hreflang="en" lang="en">English</a>
       <a href="#contact" class="btn btn-solid btn-sm">ابدأ مشروعك</a>
       <button class="burger" id="burger" aria-label="فتح القائمة" aria-expanded="false" aria-controls="drawer">
@@ -625,7 +636,7 @@ $sx_heading  = ($sx_words[$sx_count] ?? ($sx_count . ' علامات')) . ' بُ�
   <div class="wrap">
     <div class="foot-top">
       <div>
-        <img src="../assets/img/shadowx-logo-light.png" alt="ShadowX Studios" width="640" height="263">
+        <img class="logo-on-dark" src="../assets/img/shadowx-logo-light.png" alt="ShadowX Studios" width="640" height="263"><img class="logo-on-light" src="../assets/img/shadowx-logo-dark.png" alt="ShadowX Studios" width="640" height="263">
         <p class="blurb">
           استوديو هوية بصرية ومواقع في أبوظبي يقوده مؤسسه، يبني علامات الشركات الناشئة
           في الإمارات ودول الخليج — بالعربية والإنجليزية.

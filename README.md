@@ -203,3 +203,51 @@ Anything up to 6 MB is fine — the server resizes it.
 
 The strip is paused automatically for visitors who have "reduce motion"
 turned on; they get a strip they can scroll by hand instead.
+
+---
+
+## 9. Light / dark theme
+
+The site ships in dark mode. The sun/moon button in the nav bar switches to
+light, and the choice is remembered in that visitor's browser.
+
+A first-time visitor gets whatever their device is set to — a phone on light
+mode sees the light site. Once they press the button, their choice wins and
+the site stops following the device.
+
+### Changing the light colours
+
+Everything lives in `assets/css/main.css`:
+
+- **Section 1 (`:root`)** — the dark theme. This is the default.
+- **Section 23 (`:root[data-theme="light"]`)** — the light theme, which only
+  redefines the tokens that differ.
+
+The light theme follows the brand rule: **white background, orange for titles
+and highlights, black for everything else.** Section headings (`h1`, `h2`) are
+orange; body copy is near-black. The orange is `#e2571a` rather than the dark
+theme's `#f26b26` — the brighter orange does not hold enough contrast on white.
+
+To change a colour, edit the token, not the rule that uses it. For example,
+making the light background warmer is one line:
+
+```css
+:root[data-theme="light"]{ --black: #fdfcfa; }
+```
+
+### The two logo files
+
+Each page carries both logo variants and CSS shows the right one:
+
+- `shadowx-wordmark-light.png` / `shadowx-logo-light.png` — white ink, dark theme
+- `shadowx-wordmark-dark.png` / `shadowx-logo-dark.png` — black ink, light theme
+
+If you replace a logo, replace **both** variants or one theme will show the
+wrong one.
+
+### The no-flash script
+
+Every page has a small inline `<script>` in `<head>`, just above the stylesheet
+link. It sets the theme before the browser paints. **Keep it inline and keep it
+in the head** — moving it into a `.js` file brings back the white flash on load
+for dark-mode visitors.

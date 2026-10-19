@@ -223,4 +223,58 @@
     });
   }
 
+  /* ==========================================================================
+     THEME TOGGLE (light / dark)
+     --------------------------------------------------------------------------
+     The theme is already applied by the inline script in <head> before the
+     page paints — this only handles clicking the button and remembering the
+     choice. Once a visitor picks a theme we stop following the OS setting for
+     them, which is what they expect from an explicit switch.
+     ========================================================================== */
+  var themeBtn = document.getElementById('themeBtn');
+
+  function currentTheme() {
+    return document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+  }
+
+  function describe(t) {
+    var ar = document.documentElement.lang === 'ar';
+    if (ar) {
+      return t === 'light' ? 'التبديل إلى الوضع الداكن' : 'التبديل إلى الوضع الفاتح';
+    }
+    return t === 'light' ? 'Switch to dark mode' : 'Switch to light mode';
+  }
+
+  function applyTheme(t) {
+    document.documentElement.setAttribute('data-theme', t);
+    if (themeBtn) {
+      themeBtn.setAttribute('aria-label', describe(t));
+      themeBtn.setAttribute('title', describe(t));
+    }
+    // keep the browser UI (address bar on mobile) in step with the page
+    var meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) { meta.setAttribute('content', t === 'light' ? '#ffffff' : '#0a0a0a'); }
+  }
+
+  if (themeBtn) {
+    applyTheme(currentTheme());
+    themeBtn.addEventListener('click', function () {
+      var next = currentTheme() === 'light' ? 'dark' : 'light';
+      applyTheme(next);
+      try { localStorage.setItem('sx-theme', next); } catch (e) {}
+    });
+  }
+
+  // Follow the OS only while the visitor has not chosen for themselves.
+  if (window.matchMedia) {
+    var mq = window.matchMedia('(prefers-color-scheme: light)');
+    var onOS = function (e) {
+      var saved = null;
+      try { saved = localStorage.getItem('sx-theme'); } catch (err) {}
+      if (!saved) { applyTheme(e.matches ? 'light' : 'dark'); }
+    };
+    if (mq.addEventListener) { mq.addEventListener('change', onOS); }
+    else if (mq.addListener) { mq.addListener(onOS); }
+  }
+
 })();

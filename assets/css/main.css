@@ -58,6 +58,17 @@
   --r:      2px;                         /* luxury minimal = barely any radius */
   --r-lg:   4px;
   --ease:   cubic-bezier(.22,1,.36,1);
+
+  /* Theme-dependent surfaces. The light theme overrides these below. */
+  --header-bg:       rgba(10,10,10,.72);
+  --header-bg-stuck: rgba(10,10,10,.94);
+  --clients-bg:      #ffffff;   /* the clients band is white in the dark theme */
+  --clients-head:    #131316;
+  --clients-sub:     #5d5c61;
+  --shadow-xl:       rgba(0,0,0,.85);
+  --hero-glow:       rgba(242,107,38,.14);
+  --logo-dark-d:     none;      /* which logo variant shows (see 5. HEADER) */
+  --logo-light-d:    block;
 }
 
 /* ============================================================
@@ -182,12 +193,12 @@ h1,h2,h3,h4{
 
 header{
   position:sticky; top:0; z-index:50;
-  background:rgba(10,10,10,.72);
+  background:var(--header-bg);
   backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
   border-bottom:1px solid transparent;
   transition:border-color .3s, background .3s;
 }
-header.stuck{ border-bottom-color:var(--line); background:rgba(10,10,10,.94) }
+header.stuck{ border-bottom-color:var(--line); background:var(--header-bg-stuck) }
 
 .nav{ display:flex; align-items:center; justify-content:space-between; gap:24px; height:82px }
 .brand img{ height:34px; width:auto }
@@ -244,7 +255,7 @@ header.stuck{ border-bottom-color:var(--line); background:rgba(10,10,10,.94) }
 .hero::after{
   content:''; position:absolute; top:-340px; right:-260px;
   width:820px; height:820px; border-radius:50%; pointer-events:none;
-  background:radial-gradient(circle, rgba(242,107,38,.14), transparent 66%);
+  background:radial-gradient(circle, var(--hero-glow), transparent 66%);
 }
 .hero-inner{ position:relative; z-index:2 }
 .hero h1{ margin:26px 0 0; max-width:16ch }
@@ -598,7 +609,7 @@ footer{ border-top:1px solid var(--line); padding:clamp(48px,6vw,78px) 0 34px }
   width:min(380px, calc(100vw - 32px));
   background:var(--black-2); border:1px solid var(--line-2);
   border-radius:var(--r-lg); overflow:hidden;
-  box-shadow:0 30px 70px -18px rgba(0,0,0,.85);
+  box-shadow:0 30px 70px -18px var(--shadow-xl);
   display:flex; flex-direction:column; max-height:min(640px, calc(100vh - 44px));
   opacity:0; transform:translateY(16px) scale(.97); pointer-events:none;
   transition:opacity .3s var(--ease), transform .3s var(--ease);
@@ -711,7 +722,7 @@ footer{ border-top:1px solid var(--line); padding:clamp(48px,6vw,78px) 0 34px }
    22. CLIENTS — white band with a seamless logo marquee
    ============================================================ */
 .clients{
-  background:#ffffff;
+  background:var(--clients-bg);
   padding:clamp(48px,6vw,80px) 0;
   overflow:hidden;
   position:relative;
@@ -724,10 +735,10 @@ footer{ border-top:1px solid var(--line); padding:clamp(48px,6vw,78px) 0 34px }
 .cl-head h2{
   font-family:var(--display); font-weight:700;
   font-size:clamp(22px,2.8vw,34px); letter-spacing:-.03em;
-  color:#131316;
+  color:var(--clients-head);
 }
 .cl-head p{
-  color:#5d5c61; font-size:clamp(14px,1.5vw,16px);
+  color:var(--clients-sub); font-size:clamp(14px,1.5vw,16px);
   max-width:56ch; margin:12px auto 0; line-height:1.7;
 }
 
@@ -767,4 +778,112 @@ footer{ border-top:1px solid var(--line); padding:clamp(48px,6vw,78px) 0 34px }
   }
   .cl-strip .cl-track[aria-hidden="true"]{ display:none }
   .cl-item img{ filter:none; opacity:1 }
+}
+
+/* ============================================================================
+   23 · LIGHT THEME
+   ----------------------------------------------------------------------------
+   The whole site runs on the tokens in section 1, so the light theme is almost
+   entirely a token swap. Dark stays the default; light is opted into by
+   data-theme="light" on <html>, which the toggle in the nav sets.
+
+   Brand rule for this theme: white background, ORANGE for titles and
+   highlights, BLACK for everything else.
+   ========================================================================== */
+:root[data-theme="light"]{
+  /* Surfaces — "black" tokens become the light scale, lightest first */
+  --black:   #ffffff;      /* page background          */
+  --black-2: #f7f6f4;      /* cards, chat, form panel  */
+  --black-3: #f1efec;      /* alternating sections     */
+
+  /* Hairlines */
+  --line:    #e3e0dc;
+  --line-2:  #cecbc6;
+
+  /* Text — body copy is black, not grey-on-black inverted */
+  --paper:  #16151a;
+  --muted:  #4f4e55;
+  --faint:  #76747c;
+
+  /* Slightly deeper orange: #f26b26 on white is bright, this holds contrast */
+  --orange:     #e2571a;
+  --orange-dim: #c2470f;
+
+  --header-bg:       rgba(255,255,255,.78);
+  --header-bg-stuck: rgba(255,255,255,.95);
+
+  /* The clients band must still read as a separate band against a white page */
+  --clients-bg:   #f7f6f4;
+  --clients-head: var(--orange);
+  --clients-sub:  #4f4e55;
+
+  --shadow-xl: rgba(22,21,26,.22);
+  /* .hero has overflow:hidden, so this circle is clipped square at the hero's
+     edge. On black that is invisible; on white anything stronger than this
+     shows the cut as a hard line. */
+  --hero-glow: rgba(226,87,26,.055);
+
+  --logo-dark-d:  block;   /* show the dark-ink logo */
+  --logo-light-d: none;
+}
+
+/* --- Titles carry the brand colour in the light theme ------------------- */
+:root[data-theme="light"] h1,
+:root[data-theme="light"] h2{ color:var(--orange) }
+
+/* ...but a title sitting ON the orange topbar or a solid orange button must
+   not turn orange too. */
+:root[data-theme="light"] .topbar,
+:root[data-theme="light"] .btn-solid{ color:#140c06 }
+
+/* The hero's highlighted span is already orange; against orange headings it
+   needs to be the contrast colour instead, or the emphasis disappears. */
+:root[data-theme="light"] h1 .o,
+:root[data-theme="light"] h2 .o{ color:var(--paper) }
+
+/* --- Pieces that were designed light-on-dark ---------------------------- */
+:root[data-theme="light"] .tier.hot{ background:var(--black-2) }
+:root[data-theme="light"] .chat-head{ background:var(--black-3) }
+:root[data-theme="light"] .av{ background:var(--orange); color:#fff }
+:root[data-theme="light"] .bub.bot{ background:var(--black-3); color:var(--paper) }
+:root[data-theme="light"] footer{ border-top:1px solid var(--line) }
+
+/* Client logos are dark marks; on the light band keep them legible */
+:root[data-theme="light"] .cl-item img{ opacity:.72 }
+
+/* The case-study and founder images carry their own light, so soften the
+   hard edge they'd otherwise have against a white page. */
+:root[data-theme="light"] .shot,
+:root[data-theme="light"] .founder-img img{ box-shadow:0 18px 44px -22px var(--shadow-xl) }
+
+/* ============================================================================
+   24 · THEME TOGGLE (nav bar)
+   ========================================================================== */
+.theme-btn{
+  display:inline-grid; place-items:center;
+  width:38px; height:38px; flex:0 0 38px;
+  border:1px solid var(--line-2); border-radius:var(--r);
+  background:transparent; color:var(--paper);
+  cursor:pointer; position:relative;
+  transition:border-color .2s var(--ease), color .2s var(--ease), background .2s var(--ease);
+}
+.theme-btn:hover{ border-color:var(--orange); color:var(--orange) }
+.theme-btn:focus-visible{ outline:2px solid var(--orange); outline-offset:2px }
+.theme-btn svg{ width:17px; height:17px; display:block }
+
+/* One icon shows at a time: sun while dark (click for light), moon while light. */
+.theme-btn .i-sun { display:var(--logo-light-d) }
+.theme-btn .i-moon{ display:var(--logo-dark-d) }
+
+/* Logo swap — both files are in the markup, CSS picks one. */
+.brand .logo-on-dark { display:var(--logo-light-d) }
+.brand .logo-on-light{ display:var(--logo-dark-d) }
+footer .logo-on-dark { display:var(--logo-light-d) }
+footer .logo-on-light{ display:var(--logo-dark-d) }
+
+/* Colour changes shouldn't strobe when switching. */
+@media (prefers-reduced-motion:no-preference){
+  body, header, footer, section, .tier, .chat, .form-card, .post, .case{
+    transition:background-color .25s var(--ease), border-color .25s var(--ease), color .25s var(--ease);
+  }
 }
