@@ -1,26 +1,314 @@
 @import "tailwindcss";
 
+/* ============================================================
+   UNIKAI DESIGN SYSTEM
+   Clean corporate with warm heritage accents.
+   Brand colours sampled from supplied logo artwork — provisional
+   until Unikai supply official brand guidelines.
+   ============================================================ */
+
+@theme {
+  /* --- Brand ------------------------------------------------ */
+  --color-brand-red: #d23137;
+  --color-brand-red-600: #b82a2f;
+  --color-brand-red-700: #9a2328;
+  --color-brand-red-50: #fdf3f3;
+  --color-brand-red-100: #fbe4e5;
+
+  --color-brand-navy: #09018b;
+  --color-brand-navy-600: #0b0a73;
+  --color-brand-navy-800: #080551;
+  --color-brand-navy-900: #05033a;
+  --color-brand-navy-50: #f2f2fb;
+  --color-brand-navy-100: #e3e3f6;
+
+  /* --- Heritage accent (warm, 1977) ------------------------- */
+  --color-cream: #faf7f2;
+  --color-cream-200: #f1ebe0;
+  --color-sand: #e8dfd0;
+  --color-gold: #b08d4f;
+
+  /* --- Neutrals --------------------------------------------- */
+  --color-ink: #14161a;
+  --color-ink-700: #3c424c;
+  --color-ink-500: #6b7280;
+  --color-ink-300: #c3c8d0;
+  --color-ink-100: #e9ecf0;
+  --color-ink-50: #f5f7f9;
+
+  /* --- Type ------------------------------------------------- */
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    Roboto, Arial, sans-serif;
+  --font-arabic: "IBM Plex Sans Arabic", "Noto Sans Arabic", "Segoe UI", Tahoma,
+    sans-serif;
+  --font-display: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  /* --- Motion ----------------------------------------------- */
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* --- Layout ----------------------------------------------- */
+  --spacing-gutter: 1.25rem;
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --header-h: 76px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+* {
+  border-color: var(--color-ink-100);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: #ffffff;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-feature-settings: "cv02", "cv03", "cv04", "ss01";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Arabic / RTL */
+html[dir="rtl"] body {
+  font-family: var(--font-arabic);
+  font-feature-settings: normal;
+  letter-spacing: 0;
+}
+
+html[dir="rtl"] .tracking-tight,
+html[dir="rtl"] .tracking-tighter,
+html[dir="rtl"] .tracking-wide,
+html[dir="rtl"] .tracking-widest {
+  letter-spacing: 0 !important;
+}
+
+/* Arabic numerals stay latin for specs/figures */
+.nums-latin {
+  font-feature-settings: "tnum";
+  direction: ltr;
+  unicode-bidi: embed;
+  display: inline-block;
+}
+
+::selection {
+  background: var(--color-brand-navy);
+  color: #fff;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-brand-navy);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+/* ============================================================
+   TYPE SCALE
+   ============================================================ */
+
+.t-display {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.032em;
+  line-height: 1.02;
+  font-size: clamp(2.5rem, 6.2vw, 4.75rem);
+}
+
+.t-h1 {
+  font-weight: 800;
+  letter-spacing: -0.028em;
+  line-height: 1.08;
+  font-size: clamp(2rem, 4.4vw, 3.25rem);
+}
+
+.t-h2 {
+  font-weight: 700;
+  letter-spacing: -0.022em;
+  line-height: 1.15;
+  font-size: clamp(1.625rem, 3vw, 2.375rem);
+}
+
+.t-h3 {
+  font-weight: 700;
+  letter-spacing: -0.016em;
+  line-height: 1.25;
+  font-size: clamp(1.25rem, 2vw, 1.5rem);
+}
+
+.t-eyebrow {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-brand-red);
+}
+
+.t-lead {
+  font-size: clamp(1.0625rem, 1.5vw, 1.25rem);
+  line-height: 1.62;
+  color: var(--color-ink-700);
+}
+
+.t-body {
+  line-height: 1.68;
+  color: var(--color-ink-700);
+}
+
+/* ============================================================
+   COMPONENTS
+   ============================================================ */
+
+.rule-accent {
+  position: relative;
+  padding-inline-start: 1rem;
+}
+.rule-accent::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0;
+  top: 0.15em;
+  bottom: 0.15em;
+  width: 3px;
+  background: var(--color-brand-red);
+  border-radius: 2px;
+}
+
+.card-lift {
+  transition:
+    transform 0.4s var(--ease-out-soft),
+    box-shadow 0.4s var(--ease-out-soft),
+    border-color 0.3s ease;
+}
+.card-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 40px -20px rgb(9 1 139 / 0.28);
+}
+
+.link-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1.5px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 0.35s var(--ease-out-soft);
+}
+.link-underline:hover {
+  background-size: 100% 1.5px;
+}
+html[dir="rtl"] .link-underline {
+  background-position: 100% 100%;
+}
+
+/* Heritage swoosh motif, echoing the brand mark without reproducing it */
+.swoosh-divider {
+  height: 4px;
+  background: linear-gradient(
+    90deg,
+    var(--color-brand-navy) 0%,
+    var(--color-brand-navy) 38%,
+    var(--color-brand-red) 38%,
+    var(--color-brand-red) 100%
+  );
+  border-radius: 2px;
+}
+
+.grain {
+  position: relative;
+}
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.4;
+  background-image: radial-gradient(
+    rgb(255 255 255 / 0.08) 1px,
+    transparent 1px
+  );
+  background-size: 4px 4px;
+}
+
+/* ============================================================
+   MOTION
+   ============================================================ */
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes slow-zoom {
+  from {
+    transform: scale(1.06);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.anim-fade-up {
+  animation: fade-up 0.75s var(--ease-out-soft) both;
+}
+.anim-fade-in {
+  animation: fade-in 0.9s ease both;
+}
+.anim-slow-zoom {
+  animation: slow-zoom 9s var(--ease-out-soft) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ============================================================
+   UTIL
+   ============================================================ */
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.skip-link {
+  position: absolute;
+  inset-inline-start: -9999px;
+  top: 0;
+  z-index: 100;
+}
+.skip-link:focus {
+  inset-inline-start: 1rem;
+  top: 1rem;
+  background: #fff;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  box-shadow: 0 10px 30px -12px rgb(0 0 0 / 0.35);
 }
