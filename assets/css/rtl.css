@@ -79,3 +79,6 @@ h1,h2,h3,h4{
   .chat-fab{ left:16px; right:auto }
   .c-row .v{ text-align:right }
 }
+
+/* --- Clients strip scrolls the other way in RTL ------------------------ */
+@keyframes cl-scroll{ from{ transform:translateX(0) } to{ transform:translateX(100%) } }

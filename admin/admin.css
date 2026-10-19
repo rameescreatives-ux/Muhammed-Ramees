@@ -236,3 +236,32 @@ h2{font-size:21px}
 @media (prefers-reduced-motion:reduce){
   *{animation-duration:.01ms !important;transition-duration:.01ms !important}
 }
+
+/* ============================================================================
+   13 · SECTION NAV (Projects / Clients) + CLIENT LOGO MANAGER
+   ========================================================================== */
+.adm-nav{display:flex;gap:4px;align-items:center;
+  background:var(--black-4);border:1px solid var(--line);border-radius:var(--r);padding:3px}
+.adm-nav a{display:block;padding:7px 15px;border-radius:5px;font-size:13px;font-weight:500;
+  color:var(--muted);text-decoration:none;transition:background .18s, color .18s}
+.adm-nav a:hover{color:#fff}
+.adm-nav a.is-on{background:var(--orange);color:#0a0a0a;font-weight:600}
+
+/* Logos are not photos — show them whole, not cropped, on a light tile so
+   white-on-transparent marks stay visible in the dark dashboard. */
+.adm-thumb-logo{background:#f4f4f5;padding:7px}
+.adm-thumb-logo img{object-fit:contain}
+
+.adm-drawer-sm{width:min(520px,100vw)}
+
+.adm-logo-pick{display:flex;gap:16px;align-items:center;margin:0 0 6px}
+.adm-logo-preview{flex:0 0 150px;height:86px;border-radius:var(--r);background:#f4f4f5;
+  border:1px solid var(--line-2);display:grid;place-items:center;padding:10px;overflow:hidden}
+.adm-logo-preview img{max-width:100%;max-height:100%;object-fit:contain}
+.adm-logo-preview span{font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:#8a8a90}
+
+@media (max-width:700px){
+  .adm-nav{order:3;width:100%;justify-content:center}
+  .adm-logo-pick{flex-direction:column;align-items:stretch}
+  .adm-logo-preview{flex:0 0 auto}
+}

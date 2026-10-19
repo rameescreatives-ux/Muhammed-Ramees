@@ -5,7 +5,9 @@
    admin dashboard at /admin writes. Everything else is plain HTML you can edit.
    -------------------------------------------------------------------------- */
 require_once __DIR__ . '/includes/projects.php';
+require_once __DIR__ . '/includes/clients.php';
 $sx_projects = sx_published_projects();
+$sx_clients  = sx_published_clients();
 $sx_count    = count($sx_projects);
 $sx_words    = [1=>'One',2=>'Two',3=>'Three',4=>'Four',5=>'Five',6=>'Six',7=>'Seven',8=>'Eight',9=>'Nine',10=>'Ten'];
 $sx_heading  = ($sx_words[$sx_count] ?? $sx_count) . ' brand' . ($sx_count === 1 ? '' : 's') . ', built end to end.';
@@ -258,6 +260,20 @@ $sx_heading  = ($sx_words[$sx_count] ?? $sx_count) . ' brand' . ($sx_count === 1
   </div>
 </section>
 
+<!-- ======================= CLIENTS ======================= -->
+<?php if ($sx_clients): ?>
+<section class="clients" id="clients" aria-label="Clients we have worked with">
+  <div class="wrap cl-head rv">
+    <p class="eyebrow">Clients</p>
+    <h2>Brands that trusted us to build theirs.</h2>
+    <p>From restaurants and retail to foundations and tech — across the UAE, the GCC and beyond.</p>
+  </div>
+  <div class="cl-strip">
+<?= sx_render_clients($sx_clients, 'en', '') ?>
+  </div>
+</section>
+<?php endif; ?>
+
 <!-- ======================= PRICING ======================= -->
 <!-- EDIT: prices live here AND in assets/js/config.js (chatbot). Change both. -->
 <section id="pricing">
@@ -448,10 +464,9 @@ $sx_heading  = ($sx_words[$sx_count] ?? $sx_count) . ' brand' . ($sx_count === 1
     <!-- EDIT: drop a headshot in as <img src="assets/img/ramees.jpg" alt="Muhammed Ramees">
          and delete the .ph placeholder div below. -->
     <div class="founder-img rv">
-      <div class="ph">
-        <p class="mono">MR</p>
-        <p>Muhammed Ramees</p>
-      </div>
+      <img src="assets/img/ramees.webp"
+           alt="Muhammed Ramees, founder and design lead of ShadowX Studios, at his desk in Abu Dhabi"
+           width="900" height="1125" loading="lazy" decoding="async">
     </div>
 
     <div class="rv">
@@ -471,7 +486,7 @@ $sx_heading  = ($sx_words[$sx_count] ?? $sx_count) . ' brand' . ($sx_count === 1
         <p class="nm">Muhammed Ramees</p>
         <p class="rl">Founder &amp; Design Lead · Abu Dhabi, UAE</p>
         <div class="links">
-          <a href="https://www.linkedin.com/in/rameescreatives" target="_blank" rel="noopener me" class="tlink">
+          <a href="https://www.linkedin.com/in/muhammedrameesak/" target="_blank" rel="noopener me" class="tlink">
             LinkedIn
             <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </a>
@@ -718,7 +733,7 @@ $sx_heading  = ($sx_words[$sx_count] ?? $sx_count) . ' brand' . ($sx_count === 1
         <h4>Connect</h4>
         <a href="https://wa.me/971504842309" target="_blank" rel="noopener">WhatsApp</a>
         <a href="mailto:shadowxgcc@gmail.com">Email</a>
-        <a href="https://www.linkedin.com/in/rameescreatives" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://www.linkedin.com/in/muhammedrameesak/" target="_blank" rel="noopener">LinkedIn</a>
         <a href="https://www.behance.net/rameescreatives" target="_blank" rel="noopener">Behance</a>
       </div>
     </div>
@@ -789,7 +804,7 @@ $sx_heading  = ($sx_words[$sx_count] ?? $sx_count) . ' brand' . ($sx_count === 1
       },
       "founder": { "@id": "https://shadowx-studios.vercel.app/#ramees" },
       "sameAs": [
-        "https://www.linkedin.com/in/rameescreatives",
+        "https://www.linkedin.com/in/muhammedrameesak/",
         "https://www.behance.net/rameescreatives"
       ],
       "areaServed": [
@@ -843,7 +858,7 @@ $sx_heading  = ($sx_words[$sx_count] ?? $sx_count) . ' brand' . ($sx_count === 1
       "worksFor": { "@id": "https://shadowx-studios.vercel.app/#org" },
       "knowsAbout": ["Brand identity design", "Logo design", "Packaging design", "Arabic typography", "Web design"],
       "sameAs": [
-        "https://www.linkedin.com/in/rameescreatives",
+        "https://www.linkedin.com/in/muhammedrameesak/",
         "https://www.behance.net/rameescreatives"
       ]
     },

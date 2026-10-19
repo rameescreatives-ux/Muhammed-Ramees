@@ -10,6 +10,7 @@
 
 require_once __DIR__ . '/../includes/auth.php';
 require_once __DIR__ . '/../includes/projects.php';
+require_once __DIR__ . '/../includes/clients.php';
 require_once __DIR__ . '/../includes/upload.php';
 
 header('Content-Type: application/json; charset=utf-8');
@@ -168,6 +169,119 @@ switch ($action) {
             sx_delete_upload($src);
         }
         sx_json(['ok' => true]);
+    }
+
+    /* ======================================================================
+       CLIENT LOGOS
+       ====================================================================== */
+
+    /* ----------------------------------------- create / update a client -- */
+    case 'client_save': {
+        $payload = json_decode((string)($_POST['client'] ?? ''), true);
+        if (!is_array($payload)) {
+            sx_json(['ok' => false, 'error' => 'Could not read the form data.'], 400);
+        }
+        if (trim((string)($payload['name'] ?? '')) === '') {
+            sx_json(['ok' => false, 'error' => 'A client name is required.'], 422);
+        }
+        if (trim((string)($payload['logo'] ?? '')) === '') {
+            sx_json(['ok' => false, 'error' => 'Upload a logo first.'], 422);
+        }
+
+        $clients  = sx_load_clients();
+        $id       = trim((string)($payload['id'] ?? ''));
+        $existing = null;
+        $index    = null;
+
+        if ($id !== '') {
+            foreach ($clients as $i => $c) {
+                if (($c['id'] ?? '') === $id) { $existing = $c; $index = $i; break; }
+            }
+            if ($existing === null) {
+                sx_json(['ok' => false, 'error' => 'That client no longer exists.'], 404);
+            }
+        }
+
+        $clean = sx_normalise_client($payload, $existing);
+
+        // if the logo was swapped, bin the old uploaded one
+        if ($existing && ($existing['logo'] ?? '') !== $clean['logo']) {
+            $old = $existing['logo'] ?? '';
+            if (strpos($old, 'uploads/') === 0 && !sx_logo_in_use($old, $id)) {
+                sx_delete_upload($old);
+            }
+        }
+
+        if ($index !== null) { $clients[$index] = $clean; }
+        else { $clean['order'] = count($clients) + 1; $clients[] = $clean; }
+
+        if (!sx_save_clients($clients)) {
+            sx_json(['ok' => false, 'error' => 'Could not write data/clients.json. Check the folder is writable (755).'], 500);
+        }
+        sx_json(['ok' => true, 'client' => $clean, 'created' => $index === null]);
+    }
+
+    /* ----------------------------------------------------- delete client -- */
+    case 'client_delete': {
+        $id = (string)($_POST['id'] ?? '');
+        $kept = []; $removed = null;
+        foreach (sx_load_clients() as $c) {
+            if (($c['id'] ?? '') === $id) { $removed = $c; continue; }
+            $kept[] = $c;
+        }
+        if ($removed === null) {
+            sx_json(['ok' => false, 'error' => 'That client no longer exists.'], 404);
+        }
+        if (!sx_save_clients($kept)) {
+            sx_json(['ok' => false, 'error' => 'Could not save the change.'], 500);
+        }
+        $logo = $removed['logo'] ?? '';
+        if (strpos($logo, 'uploads/') === 0 && !sx_logo_in_use($logo, $id)) {
+            sx_delete_upload($logo);
+        }
+        sx_json(['ok' => true, 'name' => $removed['name'] ?? '']);
+    }
+
+    /* ---------------------------------------------------- reorder clients -- */
+    case 'client_reorder': {
+        $ids = json_decode((string)($_POST['ids'] ?? ''), true);
+        if (!is_array($ids)) {
+            sx_json(['ok' => false, 'error' => 'Bad order data.'], 400);
+        }
+        $byId = [];
+        foreach (sx_load_clients() as $c) { $byId[$c['id']] = $c; }
+        $ordered = [];
+        foreach ($ids as $id) {
+            if (isset($byId[$id])) { $ordered[] = $byId[$id]; unset($byId[$id]); }
+        }
+        foreach ($byId as $left) { $ordered[] = $left; }
+        if (!sx_save_clients($ordered)) {
+            sx_json(['ok' => false, 'error' => 'Could not save the new order.'], 500);
+        }
+        sx_json(['ok' => true]);
+    }
+
+    /* ------------------------------------------------ show / hide a client -- */
+    case 'client_toggle': {
+        $id = (string)($_POST['id'] ?? '');
+        $clients = sx_load_clients();
+        $state = null;
+        foreach ($clients as &$c) {
+            if (($c['id'] ?? '') === $id) {
+                $c['published']  = empty($c['published']);
+                $c['updated_at'] = gmdate('c');
+                $state = $c['published'];
+                break;
+            }
+        }
+        unset($c);
+        if ($state === null) {
+            sx_json(['ok' => false, 'error' => 'That client no longer exists.'], 404);
+        }
+        if (!sx_save_clients($clients)) {
+            sx_json(['ok' => false, 'error' => 'Could not save the change.'], 500);
+        }
+        sx_json(['ok' => true, 'published' => $state]);
     }
 
     /* ---------------------------------------------------------- password -- */

@@ -29,6 +29,10 @@ $live     = count(array_filter($projects, fn($p) => !empty($p['published'])));
       <img src="../assets/img/shadowx-wordmark-light.png" alt="ShadowX Studios" width="520" height="161">
       <span class="adm-badge">Admin</span>
     </a>
+    <nav class="adm-nav">
+      <a href="index.php" class="is-on">Projects</a>
+      <a href="clients.php">Clients</a>
+    </nav>
     <nav class="adm-top-right">
       <a href="../index.php" target="_blank" rel="noopener" class="btn-admin btn-admin-ghost">View site ↗</a>
       <button type="button" class="btn-admin btn-admin-ghost" id="pwBtn">Change password</button>

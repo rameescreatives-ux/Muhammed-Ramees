@@ -2,7 +2,7 @@
 
 Bilingual (English / Arabic) site for ShadowX Studios, Abu Dhabi, with a
 password-protected admin area for managing the projects shown in the Work
-section.
+section and the client logos in the Clients strip.
 
 Built for **Hostinger shared hosting** — PHP 8, no database, no build step.
 Open the folder in VS Code and edit.
@@ -90,19 +90,24 @@ public_html/
 ├── ar/index.php           Arabic home page   (Work section is generated)
 ├── admin/                 the dashboard
 │   ├── index.php          project list + editor
+│   ├── clients.php        client logo list + editor
 │   ├── login.php          sign in
 │   ├── logout.php
 │   ├── api.php            all save/delete/upload actions
 │   ├── admin.css
-│   └── admin.js
+│   ├── admin.js
+│   └── clients.js
 ├── includes/
 │   ├── config.php         ← admin username + password hash, upload limits
 │   ├── auth.php           sessions, CSRF, login throttling
 │   ├── projects.php       reads/writes projects.json, renders the Work section
+│   ├── clients.php        reads/writes clients.json, renders the Clients strip
 │   └── upload.php         image validation and resizing
 ├── data/
-│   └── projects.json      ← every project. Back this file up.
-├── uploads/               images added through the dashboard
+│   ├── projects.json      ← every project. Back this file up.
+│   └── clients.json       ← every client logo. Back this file up.
+├── uploads/               images and logos added through the dashboard
+├── assets/clients/        the 13 client logos that ship with the site
 ├── work/                  the three original project images
 ├── blog/                  six articles (plain HTML)
 ├── assets/css|js|img/     site styles, scripts, logos
@@ -176,3 +181,25 @@ Worth doing yourself:
 ---
 
 © 2026 ShadowX Studios · Abu Dhabi, UAE
+
+---
+
+## 8. Client logos (the scrolling strip on the home page)
+
+Sign in and open **Clients** in the top bar.
+
+- **Add client** — upload the logo, type the name, optionally add the Arabic
+  name and a website link, then Save. It appears in the strip immediately.
+- **Edit** — change the name, swap the logo, add or remove the link.
+- **Live / Hidden** — hide a logo without deleting it.
+- **Drag the ⠿ handle** — sets the order the logos scroll in.
+- **Delete** — removes it. A logo you uploaded is deleted with it; the 13
+  logos that ship in `assets/clients/` are never deleted.
+
+**Logo tips:** PNG with a transparent or white background works best. The
+strip shows them at about 60 px tall in greyscale and they turn full colour
+when a visitor hovers, so a logo with thin light strokes can look faint.
+Anything up to 6 MB is fine — the server resizes it.
+
+The strip is paused automatically for visitors who have "reduce motion"
+turned on; they get a strip they can scroll by hand instead.

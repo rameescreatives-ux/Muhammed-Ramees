@@ -1,0 +1,145 @@
+[
+    {
+        "id": "f0d94c8de3824f29",
+        "order": 1,
+        "published": true,
+        "name": "Blue Water Ornamental Fish",
+        "name_ar": "",
+        "logo": "assets/clients/blue-water.png",
+        "url": "",
+        "created_at": "2026-10-19T06:57:56+00:00",
+        "updated_at": "2026-10-19T06:57:56+00:00"
+    },
+    {
+        "id": "3bbd905ee17bc90c",
+        "order": 2,
+        "published": true,
+        "name": "Super-Cut",
+        "name_ar": "",
+        "logo": "assets/clients/super-cut.png",
+        "url": "",
+        "created_at": "2026-10-19T06:57:56+00:00",
+        "updated_at": "2026-10-19T06:57:56+00:00"
+    },
+    {
+        "id": "01b4a239b7d0f97a",
+        "order": 3,
+        "published": true,
+        "name": "Crispyhens",
+        "name_ar": "",
+        "logo": "assets/clients/crispyhens.png",
+        "url": "",
+        "created_at": "2026-10-19T06:57:56+00:00",
+        "updated_at": "2026-10-19T06:57:56+00:00"
+    },
+    {
+        "id": "1ab112d7b120ab5c",
+        "order": 4,
+        "published": true,
+        "name": "Pepper'B Restaurant",
+        "name_ar": "",
+        "logo": "assets/clients/pepper-b.png",
+        "url": "",
+        "created_at": "2026-10-19T06:57:56+00:00",
+        "updated_at": "2026-10-19T06:57:56+00:00"
+    },
+    {
+        "id": "a0bbe58656fc03fe",
+        "order": 5,
+        "published": true,
+        "name": "Rihla Go",
+        "name_ar": "",
+        "logo": "assets/clients/rihla-go.png",
+        "url": "",
+        "created_at": "2026-10-19T06:57:56+00:00",
+        "updated_at": "2026-10-19T06:57:56+00:00"
+    },
+    {
+        "id": "1038596ef81405d7",
+        "order": 6,
+        "published": true,
+        "name": "Arabian Alliance",
+        "name_ar": "",
+        "logo": "assets/clients/arabian-alliance.png",
+        "url": "",
+        "created_at": "2026-10-19T06:57:56+00:00",
+        "updated_at": "2026-10-19T06:57:56+00:00"
+    },
+    {
+        "id": "ec32fdad4fd004d8",
+        "order": 7,
+        "published": true,
+        "name": "Alif Mobiles",
+        "name_ar": "",
+        "logo": "assets/clients/alif-mobiles.png",
+        "url": "",
+        "created_at": "2026-10-19T06:57:56+00:00",
+        "updated_at": "2026-10-19T06:57:56+00:00"
+    },
+    {
+        "id": "e61ffde789f9ff4a",
+        "order": 8,
+        "published": true,
+        "name": "HoMade Interiors and Developers",
+        "name_ar": "",
+        "logo": "assets/clients/homade.png",
+        "url": "",
+        "created_at": "2026-10-19T06:57:56+00:00",
+        "updated_at": "2026-10-19T06:57:56+00:00"
+    },
+    {
+        "id": "878577a82fdefe84",
+        "order": 9,
+        "published": true,
+        "name": "Qalb Ai",
+        "name_ar": "",
+        "logo": "assets/clients/qalb-ai.png",
+        "url": "",
+        "created_at": "2026-10-19T06:57:56+00:00",
+        "updated_at": "2026-10-19T06:57:56+00:00"
+    },
+    {
+        "id": "52ed2d30358fe765",
+        "order": 10,
+        "published": true,
+        "name": "Koduvally Expact Foundation",
+        "name_ar": "",
+        "logo": "assets/clients/kef.png",
+        "url": "",
+        "created_at": "2026-10-19T06:57:56+00:00",
+        "updated_at": "2026-10-19T06:57:56+00:00"
+    },
+    {
+        "id": "85a62192f4868df1",
+        "order": 11,
+        "published": true,
+        "name": "Star Gold Refinary",
+        "name_ar": "",
+        "logo": "assets/clients/star-gold.png",
+        "url": "",
+        "created_at": "2026-10-19T06:57:56+00:00",
+        "updated_at": "2026-10-19T06:57:56+00:00"
+    },
+    {
+        "id": "30d40b8332d23397",
+        "order": 12,
+        "published": true,
+        "name": "Learn Track",
+        "name_ar": "",
+        "logo": "assets/clients/learn-track.png",
+        "url": "",
+        "created_at": "2026-10-19T06:57:56+00:00",
+        "updated_at": "2026-10-19T06:57:56+00:00"
+    },
+    {
+        "id": "1baf4a647f5ea811",
+        "order": 13,
+        "published": true,
+        "name": "Shadow Art",
+        "name_ar": "",
+        "logo": "assets/clients/shadow-art.png",
+        "url": "",
+        "created_at": "2026-10-19T06:57:56+00:00",
+        "updated_at": "2026-10-19T06:57:56+00:00"
+    }
+]

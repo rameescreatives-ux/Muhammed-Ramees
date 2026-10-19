@@ -4,7 +4,9 @@
    قسم "مختارات من أعمالنا" يُولَّد من data/projects.json عبر لوحة التحكم /admin.
    -------------------------------------------------------------------------- */
 require_once __DIR__ . '/../includes/projects.php';
+require_once __DIR__ . '/../includes/clients.php';
 $sx_projects = sx_published_projects();
+$sx_clients  = sx_published_clients();
 $sx_count    = count($sx_projects);
 $sx_words    = [1=>'علامة واحدة',2=>'علامتان',3=>'ثلاث علامات',4=>'أربع علامات',5=>'خمس علامات',6=>'ست علامات'];
 $sx_heading  = ($sx_words[$sx_count] ?? ($sx_count . ' علامات')) . ' بُنيت بالكامل.';
@@ -236,6 +238,20 @@ $sx_heading  = ($sx_words[$sx_count] ?? ($sx_count . ' علامات')) . ' بُ�
   </div>
 </section>
 
+<!-- ======================= العملاء ======================= -->
+<?php if ($sx_clients): ?>
+<section class="clients" id="clients" aria-label="عملاؤنا">
+  <div class="wrap cl-head rv">
+    <p class="eyebrow">عملاؤنا</p>
+    <h2>علامات ائتمنتنا على بناء هويتها.</h2>
+    <p>من المطاعم والتجزئة إلى المؤسسات والتقنية — في الإمارات ودول الخليج وخارجها.</p>
+  </div>
+  <div class="cl-strip">
+<?= sx_render_clients($sx_clients, 'ar', '/') ?>
+  </div>
+</section>
+<?php endif; ?>
+
 <!-- ======================= الباقات ======================= -->
 <section id="pricing">
   <div class="wrap">
@@ -417,10 +433,9 @@ $sx_heading  = ($sx_words[$sx_count] ?? ($sx_count . ' علامات')) . ' بُ�
 <section id="founder" class="alt">
   <div class="wrap founder">
     <div class="founder-img rv">
-      <div class="ph">
-        <p class="mono" lang="en">MR</p>
-        <p>محمد رميس</p>
-      </div>
+      <img src="/assets/img/ramees.webp"
+           alt="محمد رميس، مؤسس ومدير التصميم في ShadowX Studios، في مكتبه بأبوظبي"
+           width="900" height="1125" loading="lazy" decoding="async">
     </div>
 
     <div class="rv">
@@ -439,7 +454,7 @@ $sx_heading  = ($sx_words[$sx_count] ?? ($sx_count . ' علامات')) . ' بُ�
         <p class="nm">محمد رميس</p>
         <p class="rl">المؤسس ومدير التصميم · أبوظبي، الإمارات</p>
         <div class="links">
-          <a href="https://www.linkedin.com/in/rameescreatives" target="_blank" rel="noopener me" class="tlink">
+          <a href="https://www.linkedin.com/in/muhammedrameesak/" target="_blank" rel="noopener me" class="tlink">
             لينكدإن
             <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </a>
@@ -638,7 +653,7 @@ $sx_heading  = ($sx_words[$sx_count] ?? ($sx_count . ' علامات')) . ' بُ�
         <h4>تواصل</h4>
         <a href="https://wa.me/971504842309" target="_blank" rel="noopener">واتساب</a>
         <a href="mailto:shadowxgcc@gmail.com">البريد الإلكتروني</a>
-        <a href="https://www.linkedin.com/in/rameescreatives" target="_blank" rel="noopener">لينكدإن</a>
+        <a href="https://www.linkedin.com/in/muhammedrameesak/" target="_blank" rel="noopener">لينكدإن</a>
         <a href="https://www.behance.net/rameescreatives" target="_blank" rel="noopener">بيهانس</a>
       </div>
     </div>
@@ -702,7 +717,7 @@ $sx_heading  = ($sx_words[$sx_count] ?? ($sx_count . ' علامات')) . ' بُ�
         "addressCountry": "AE"
       },
       "sameAs": [
-        "https://www.linkedin.com/in/rameescreatives",
+        "https://www.linkedin.com/in/muhammedrameesak/",
         "https://www.behance.net/rameescreatives"
       ],
       "areaServed": [
