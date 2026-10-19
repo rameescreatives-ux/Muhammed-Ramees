@@ -10,6 +10,9 @@ import { trackLead } from "@/components/layout/Analytics";
 
 const TYPES: EnquiryType[] = ["export", "distribution", "general", "partnership"];
 
+/** Static preview build: there is no server, so submission cannot work. */
+const PREVIEW = process.env.NEXT_PUBLIC_STATIC_PREVIEW === "true";
+
 /**
  * The enquiry form.
  *
@@ -34,7 +37,9 @@ export function EnquiryForm({
 }) {
   const pathname = usePathname();
   const [type, setType] = useState<EnquiryType>(defaultType);
-  const [state, setState] = useState<"idle" | "sending" | "done" | "error">("idle");
+  const [state, setState] = useState<
+    "idle" | "sending" | "done" | "error" | "preview"
+  >("idle");
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -65,8 +70,25 @@ export function EnquiryForm({
       trackLead(type);
       setState("done");
     } catch {
-      setState("error");
+      setState(PREVIEW ? "preview" : "error");
     }
+  }
+
+  if (state === "preview") {
+    return (
+      <div className="rounded-2xl border border-dashed border-ink-300 bg-ink-50 p-8 text-center">
+        <p className="text-[1.0625rem] font-bold text-ink">
+          {locale === "ar"
+            ? "هذه معاينة ثابتة — الإرسال معطّل"
+            : "Static preview — submission is disabled"}
+        </p>
+        <p className="t-body mx-auto mt-3 max-w-md text-[0.9375rem]">
+          {locale === "ar"
+            ? "النموذج يعمل بالكامل في النسخة المنشورة: يُحفظ الاستفسار ويُوجَّه إلى الفريق المختص."
+            : "The form is fully working in the deployed build — the enquiry is stored and routed to the right department."}
+        </p>
+      </div>
+    );
   }
 
   if (state === "done") {

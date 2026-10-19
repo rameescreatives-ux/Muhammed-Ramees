@@ -176,12 +176,16 @@ export function classifyIntent(
   text: string,
 ): "export" | "distribution" | "general" | "partnership" | null {
   const q = text.toLowerCase();
-  if (/\b(export|import|overseas|international|ship to|another country|abroad|customs|documentation)\b/.test(q))
+
+  // Prefix matching, not whole-word: a trailing \b after a stem like
+  // "distribut" can never match "distributor" or "distributing", which are
+  // exactly the words a real trade enquiry uses.
+  if (/\b(export|import|overseas|international|ship to|another country|abroad|customs|documentation)/.test(q))
     return "export";
-  if (/\b(distribut|wholesale|bulk|retail|supply|stock|supermarket|horeca|reseller|trade)\b/.test(q))
+  if (/\b(distribut|wholesal|bulk|retail|supply|supplying|stock|supermarket|horeca|resell|trade)/.test(q))
     return "distribution";
-  if (/\b(supplier|partner|partnership|vendor|media|press|journalist|co-?manufact)\b/.test(q))
+  if (/\b(supplier|partner|vendor|media|press|journalist|co-?manufact)/.test(q))
     return "partnership";
-  if (/\b(buy|purchase|price|order|quote|quotation)\b/.test(q)) return "distribution";
+  if (/\b(buy|purchas|price|order|quote|quotation)/.test(q)) return "distribution";
   return null;
 }

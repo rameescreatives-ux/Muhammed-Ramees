@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import type { EnquiryType, Locale } from "@/content/types";
 import { T, href } from "@/lib/i18n";
+import { buildKnowledge, classifyIntent, retrieve } from "@/lib/knowledge";
 import { cn } from "@/lib/cn";
 import { Button } from "@/components/ui/Button";
 import { trackLead } from "@/components/layout/Analytics";
@@ -55,6 +56,7 @@ export function Chatbot({ locale }: { locale: Locale }) {
           messages: next.map(({ role, content }) => ({ role, content })),
         }),
       });
+      if (!res.ok) throw new Error(`upstream_${res.status}`);
       const data = await res.json();
 
       setMessages((m) => [
@@ -71,10 +73,16 @@ export function Chatbot({ locale }: { locale: Locale }) {
         if (!captured) setShowCapture(true);
       }
     } catch {
-      setMessages((m) => [
-        ...m,
-        { role: "assistant", content: T("form.error", locale) },
-      ]);
+      // The route is unreachable (offline, cold start, or a static preview
+      // with no server). The knowledge base is plain data, so retrieval can
+      // run here instead — the assistant keeps answering from exactly the
+      // same approved passages rather than showing a dead end.
+      const local = answerLocally(trimmed, locale);
+      setMessages((m) => [...m, local.message]);
+      if (local.intent) {
+        setIntent(local.intent);
+        if (!captured) setShowCapture(true);
+      }
     } finally {
       setBusy(false);
     }
@@ -357,3 +365,46 @@ function LeadCapture({
 
 const miniInput =
   "h-9 rounded-lg border border-ink-200 bg-ink-50 px-3 text-[0.8125rem] outline-none transition-colors placeholder:text-ink-500 focus:border-brand-navy focus:bg-white";
+
+// ------------------------------------------------------- client fallback
+
+/**
+ * Answer from the approved knowledge base without the server.
+ *
+ * Same passages, same retrieval, same intent classification as the API
+ * route — only the natural-language phrasing is missing. The safety
+ * boundary is unchanged: it can only say what the passages say, so it
+ * still cannot invent a price, a certification or an export market.
+ */
+function answerLocally(
+  question: string,
+  locale: Locale,
+): { message: Msg; intent: EnquiryType | null } {
+  const hits = retrieve(question, buildKnowledge(locale), 3);
+  const intent = classifyIntent(question);
+
+  if (!hits.length) {
+    return {
+      message: {
+        role: "assistant",
+        content:
+          locale === "ar"
+            ? "ليس لدي هذه المعلومة ضمن محتوى يونيكاي المنشور. يسعدني توصيلك بالفريق المختص — هل ترغب بمشاركة بيانات التواصل؟"
+            : "I don't have that detail in Unikai's published information. I can put you in touch with the right team — would you like to share your contact details?",
+      },
+      intent,
+    };
+  }
+
+  const extra = hits[1] ? ` ${hits[1].body.split(". ")[0]}.` : "";
+  return {
+    message: {
+      role: "assistant",
+      content: `${hits[0].body}${extra}`,
+      sources: hits
+        .filter((h) => h.path)
+        .map((h) => ({ title: h.title, path: h.path })),
+    },
+    intent,
+  };
+}

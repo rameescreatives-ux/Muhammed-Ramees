@@ -33,15 +33,31 @@ export function tArray(
   return value.en;
 }
 
+/**
+ * Static-preview mode.
+ *
+ * `src/proxy.ts` rewrites unprefixed paths to /en internally, so in a normal
+ * deployment English lives at the root. A static export has no proxy, so the
+ * /en prefix has to be real. This flag is set only for the preview build and
+ * is off in every real deployment.
+ */
+const STATIC_PREVIEW = process.env.NEXT_PUBLIC_STATIC_PREVIEW === "true";
+
 /** Build a locale-aware href. English is served at the root, Arabic under /ar. */
 export function href(path: string, locale: Locale): string {
   const clean = path === "/" ? "" : path.replace(/\/$/, "");
+  if (STATIC_PREVIEW) {
+    // Explicit index.html: a plain static host does not reliably resolve
+    // /path/ to /path/index.html, and a preview that 404s is worthless.
+    const [p, hash = ""] = clean.split("#");
+    return `/${locale}${p}/index.html${hash ? `#${hash}` : ""}`;
+  }
   return locale === "en" ? clean || "/" : `/ar${clean}`;
 }
 
 /** Swap the locale on the current pathname, preserving the rest of the route. */
 export function swapLocale(pathname: string, to: Locale): string {
-  const stripped = pathname.replace(/^\/ar(?=\/|$)/, "") || "/";
+  const stripped = pathname.replace(/^\/(ar|en)(?=\/|$)/, "") || "/";
   return href(stripped, to);
 }
 
