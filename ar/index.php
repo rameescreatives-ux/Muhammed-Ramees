@@ -45,14 +45,14 @@ $sx_heading  = ($sx_words[$sx_count] ?? ($sx_count . ' علامات')) . ' بُ�
 <meta name="twitter:card" content="summary_large_image">
 
 <meta name="theme-color" content="#0a0a0a">
-<link rel="icon" href="/assets/img/shadowx-wordmark-dark.png">
-<link rel="manifest" href="/site.webmanifest">
+<link rel="icon" href="../assets/img/shadowx-wordmark-dark.png">
+<link rel="manifest" href="../site.webmanifest">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/css/main.css">
-<link rel="stylesheet" href="/assets/css/rtl.css">
+<link rel="stylesheet" href="../assets/css/main.css">
+<link rel="stylesheet" href="../assets/css/rtl.css">
 </head>
 
 <body>
@@ -65,8 +65,8 @@ $sx_heading  = ($sx_words[$sx_count] ?? ($sx_count . ' علامات')) . ' بُ�
 <!-- ======================= الترويسة ======================= -->
 <header id="siteHeader">
   <div class="wrap nav">
-    <a href="/ar/" class="brand" aria-label="ShadowX Studios — الصفحة الرئيسية">
-      <img src="/assets/img/shadowx-wordmark-light.png" alt="ShadowX Studios" width="520" height="161">
+    <a href="index.php" class="brand" aria-label="ShadowX Studios — الصفحة الرئيسية">
+      <img src="../assets/img/shadowx-wordmark-light.png" alt="ShadowX Studios" width="520" height="161">
     </a>
 
     <nav class="nav-links" aria-label="التنقل الرئيسي">
@@ -74,10 +74,11 @@ $sx_heading  = ($sx_words[$sx_count] ?? ($sx_count . ' علامات')) . ' بُ�
       <a href="#work">أعمالنا</a>
       <a href="#pricing">الباقات</a>
       <a href="#process">آلية العمل</a>
+      <a href="../blog/index.html" hreflang="en">المقالات</a>
     </nav>
 
     <div class="nav-right">
-      <a href="/" class="lang" hreflang="en" lang="en">English</a>
+      <a href="../index.php" class="lang" hreflang="en" lang="en">English</a>
       <a href="#contact" class="btn btn-solid btn-sm">ابدأ مشروعك</a>
       <button class="burger" id="burger" aria-label="فتح القائمة" aria-expanded="false" aria-controls="drawer">
         <i></i><i></i><i></i>
@@ -91,8 +92,9 @@ $sx_heading  = ($sx_words[$sx_count] ?? ($sx_count . ' علامات')) . ' بُ�
   <a href="#work" class="d-link">أعمالنا <span>٠٢</span></a>
   <a href="#pricing" class="d-link">الباقات <span>٠٣</span></a>
   <a href="#process" class="d-link">آلية العمل <span>٠٤</span></a>
-  <a href="#contact" class="d-link">تواصل معنا <span>٠٥</span></a>
-  <a href="/" class="d-link" lang="en">English <span>EN</span></a>
+  <a href="../blog/index.html" class="d-link" hreflang="en">المقالات <span>٠٥</span></a>
+  <a href="#contact" class="d-link">تواصل معنا <span>٠٦</span></a>
+  <a href="../index.php" class="d-link" lang="en">English <span>EN</span></a>
   <a href="#contact" class="btn btn-solid btn-block btn-lg">ابدأ مشروعك</a>
 </div>
 
@@ -227,7 +229,7 @@ $sx_heading  = ($sx_words[$sx_count] ?? ($sx_count . ' علامات')) . ' بُ�
       </p>
     </div>
 
-<?= sx_render_cases($sx_projects, 'ar', '/') ?>
+<?= sx_render_cases($sx_projects, 'ar', '../') ?>
 
     <div style="margin-top:clamp(40px,5vw,64px); text-align:center" class="rv">
       <a href="https://www.behance.net/gallery/229529881/Portfolio" target="_blank" rel="noopener" class="btn btn-line btn-lg">
@@ -247,7 +249,7 @@ $sx_heading  = ($sx_words[$sx_count] ?? ($sx_count . ' علامات')) . ' بُ�
     <p>من المطاعم والتجزئة إلى المؤسسات والتقنية — في الإمارات ودول الخليج وخارجها.</p>
   </div>
   <div class="cl-strip">
-<?= sx_render_clients($sx_clients, 'ar', '/') ?>
+<?= sx_render_clients($sx_clients, 'ar', '../') ?>
   </div>
 </section>
 <?php endif; ?>
@@ -433,7 +435,7 @@ $sx_heading  = ($sx_words[$sx_count] ?? ($sx_count . ' علامات')) . ' بُ�
 <section id="founder" class="alt">
   <div class="wrap founder">
     <div class="founder-img rv">
-      <img src="/assets/img/ramees.webp"
+      <img src="../assets/img/ramees.webp"
            alt="محمد رميس، مؤسس ومدير التصميم في ShadowX Studios، في مكتبه بأبوظبي"
            width="900" height="1125" loading="lazy" decoding="async">
     </div>
@@ -623,7 +625,7 @@ $sx_heading  = ($sx_words[$sx_count] ?? ($sx_count . ' علامات')) . ' بُ�
   <div class="wrap">
     <div class="foot-top">
       <div>
-        <img src="/assets/img/shadowx-logo-light.png" alt="ShadowX Studios" width="640" height="263">
+        <img src="../assets/img/shadowx-logo-light.png" alt="ShadowX Studios" width="640" height="263">
         <p class="blurb">
           استوديو هوية بصرية ومواقع في أبوظبي يقوده مؤسسه، يبني علامات الشركات الناشئة
           في الإمارات ودول الخليج — بالعربية والإنجليزية.
@@ -645,8 +647,9 @@ $sx_heading  = ($sx_words[$sx_count] ?? ($sx_count . ' علامات')) . ' بُ�
         <a href="#work">أعمالنا</a>
         <a href="#pricing">الباقات</a>
         <a href="#process">آلية العمل</a>
+        <a href="../blog/index.html" hreflang="en">المقالات</a>
         <a href="#contact">تواصل معنا</a>
-        <a href="/" lang="en">English</a>
+        <a href="../index.php" lang="en">English</a>
       </div>
 
       <div class="fcol">
@@ -749,9 +752,9 @@ $sx_heading  = ($sx_words[$sx_count] ?? ($sx_count . ' علامات')) . ' بُ�
 }
 </script>
 
-<script src="/assets/js/config.js"></script>
-<script src="/assets/js/config-ar.js"></script>
-<script src="/assets/js/main.js"></script>
-<script src="/assets/js/chatbot.js"></script>
+<script src="../assets/js/config.js"></script>
+<script src="../assets/js/config-ar.js"></script>
+<script src="../assets/js/main.js"></script>
+<script src="../assets/js/chatbot.js"></script>
 </body>
 </html>

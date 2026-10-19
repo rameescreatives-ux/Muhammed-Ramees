@@ -77,7 +77,7 @@ $sx_heading  = ($sx_words[$sx_count] ?? $sx_count) . ' brand' . ($sx_count === 1
 <!-- ======================= HEADER / NAV ======================= -->
 <header id="siteHeader">
   <div class="wrap nav">
-    <a href="/" class="brand" aria-label="ShadowX Studios — home">
+    <a href="index.php" class="brand" aria-label="ShadowX Studios — home">
       <img src="assets/img/shadowx-wordmark-light.png" alt="ShadowX Studios" width="520" height="161">
     </a>
 
@@ -86,11 +86,11 @@ $sx_heading  = ($sx_words[$sx_count] ?? $sx_count) . ' brand' . ($sx_count === 1
       <a href="#work">Work</a>
       <a href="#pricing">Pricing</a>
       <a href="#process">Process</a>
-      <a href="/blog/">Insights</a>
+      <a href="blog/index.html">Insights</a>
     </nav>
 
     <div class="nav-right">
-      <a href="/ar/" class="lang" hreflang="ar" lang="ar">العربية</a>
+      <a href="ar/index.php" class="lang" hreflang="ar" lang="ar">العربية</a>
       <a href="#contact" class="btn btn-solid btn-sm">Start a project</a>
       <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="drawer">
         <i></i><i></i><i></i>
@@ -105,9 +105,9 @@ $sx_heading  = ($sx_words[$sx_count] ?? $sx_count) . ' brand' . ($sx_count === 1
   <a href="#work" class="d-link">Work <span>02</span></a>
   <a href="#pricing" class="d-link">Pricing <span>03</span></a>
   <a href="#process" class="d-link">Process <span>04</span></a>
-  <a href="/blog/" class="d-link">Insights <span>05</span></a>
+  <a href="blog/index.html" class="d-link">Insights <span>05</span></a>
   <a href="#contact" class="d-link">Contact <span>06</span></a>
-  <a href="/ar/" class="d-link" lang="ar">العربية <span>AR</span></a>
+  <a href="ar/index.php" class="d-link" lang="ar">العربية <span>AR</span></a>
   <a href="#contact" class="btn btn-solid btn-block btn-lg">Start a project</a>
 </div>
 
@@ -515,21 +515,21 @@ $sx_heading  = ($sx_words[$sx_count] ?? $sx_count) . ' brand' . ($sx_count === 1
     </div>
 
     <div class="posts">
-      <a href="/blog/branding-cost-uae/" class="post rv">
+      <a href="blog/branding-cost-uae/index.html" class="post rv">
         <span class="p-kind">Pricing</span>
         <h3>How much does branding cost in the UAE in 2026?</h3>
         <p>Real AED ranges for a logo, a brand book and a full identity — what drives the number up, and what you can safely skip when you are starting out.</p>
         <span class="p-foot"><span>Guide</span><span>11 min</span></span>
       </a>
 
-      <a href="/blog/what-is-in-a-brand-book/" class="post rv">
+      <a href="blog/what-is-in-a-brand-book/index.html" class="post rv">
         <span class="p-kind">Deliverables</span>
         <h3>What's actually inside a brand book?</h3>
         <p>A page-by-page breakdown of what you should receive, what a thin one looks like, and the file formats to insist on before you pay the balance.</p>
         <span class="p-foot"><span>Guide</span><span>9 min</span></span>
       </a>
 
-      <a href="/blog/logo-only-or-full-branding/" class="post rv">
+      <a href="blog/logo-only-or-full-branding/index.html" class="post rv">
         <span class="p-kind">Decisions</span>
         <h3>Logo only, or full branding?</h3>
         <p>A decision framework for first-time founders — when a logo genuinely is enough, and the three situations where stopping there costs you more later.</p>
@@ -538,7 +538,7 @@ $sx_heading  = ($sx_words[$sx_count] ?? $sx_count) . ' brand' . ($sx_count === 1
     </div>
 
     <div style="margin-top:clamp(34px,4vw,52px)" class="rv">
-      <a href="/blog/" class="tlink">
+      <a href="blog/index.html" class="tlink">
         Read all insights
         <svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
@@ -724,9 +724,9 @@ $sx_heading  = ($sx_words[$sx_count] ?? $sx_count) . ' brand' . ($sx_count === 1
         <a href="#work">Work</a>
         <a href="#pricing">Pricing</a>
         <a href="#process">Process</a>
-        <a href="/blog/">Insights</a>
+        <a href="blog/index.html">Insights</a>
         <a href="#contact">Contact</a>
-        <a href="/ar/" lang="ar">العربية</a>
+        <a href="ar/index.php" lang="ar">العربية</a>
       </div>
 
       <div class="fcol">
