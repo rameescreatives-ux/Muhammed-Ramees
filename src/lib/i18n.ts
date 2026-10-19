@@ -55,10 +55,18 @@ export function href(path: string, locale: Locale): string {
   return locale === "en" ? clean || "/" : `/ar${clean}`;
 }
 
-/** Swap the locale on the current pathname, preserving the rest of the route. */
+/**
+ * Swap the locale on the current pathname, preserving the rest of the route.
+ *
+ * Both affixes have to come off before the path is rebuilt: the locale
+ * prefix, and the explicit /index.html that static-preview builds append.
+ * Leaving the suffix on produces /ar/products/index.html/index.html.
+ */
 export function swapLocale(pathname: string, to: Locale): string {
-  const stripped = pathname.replace(/^\/(ar|en)(?=\/|$)/, "") || "/";
-  return href(stripped, to);
+  const stripped = pathname
+    .replace(/^\/(ar|en)(?=\/|$)/, "")
+    .replace(/\/index\.html$/, "");
+  return href(stripped || "/", to);
 }
 
 // ---------------------------------------------------------------- UI strings
