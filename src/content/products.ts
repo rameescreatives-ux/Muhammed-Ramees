@@ -33,7 +33,7 @@ export const ranges: Range[] = [
       en: "The range Unikai was founded on in 1977. Pasteurised fresh milk, flavoured milk, yoghurt, laban, UHT long-life milk and milk powder, produced at our UAE facilities and distributed across the UAE and Oman.",
       ar: "المجموعة التي تأسست عليها يونيكاي عام ١٩٧٧: حليب طازج مبستر، حليب بنكهات، زبادي، لبن، حليب طويل الأجل ومسحوق الحليب، تُنتج في منشآتنا بالإمارات.",
     },
-    image: `${U}/2016/02/Dairy-range-website-1.png`,
+    image: "/products/dairy.webp",
     legacyUrl: "/product-category/dairy/",
   },
   {
@@ -49,7 +49,7 @@ export const ranges: Range[] = [
       en: "A full impulse and take-home ice cream portfolio spanning lollies and bars, cones and sandwiches, soft scoop, kulfi, a sugar-free line and the Royal Treat premium range.",
       ar: "محفظة متكاملة من الآيس كريم تشمل المصاصات والألواح والكونز والسوفت سكوب والكُلفي وخط خالٍ من السكر ومجموعة رويال تريت الفاخرة.",
     },
-    image: `${U}/2016/02/Ice-cream-Range-Website-1.png`,
+    image: "/products/ice-cream.webp",
     legacyUrl: "/product-category/unikai-ice-cream-range/",
   },
   {
@@ -65,7 +65,7 @@ export const ranges: Range[] = [
       en: "Chilled fresh juices, UHT long-life juices and juice drinks, the Areej and Tropical Fresh lines, and a carbonated soft drink range.",
       ar: "عصائر طازجة مبردة، وعصائر طويلة الأجل، وخطّا عريج وتروبيكال فريش، ومجموعة مشروبات غازية.",
     },
-    image: `${U}/2016/02/Juice-beverage-Range-1.png`,
+    image: "/products/juices.webp",
     legacyUrl: "/product-category/juice/",
   },
   {
@@ -81,7 +81,7 @@ export const ranges: Range[] = [
       en: "Processed cheese, cakes and nuts under the Delite brand, plus a basmati rice range — the ambient side of the Unikai portfolio.",
       ar: "أجبان مصنّعة وكيك ومكسرات تحت علامة ديلايت، إضافة إلى مجموعة أرز بسمتي.",
     },
-    image: `${U}/2016/02/Food-Range-Website.png`,
+    image: "/products/foods.webp",
     legacyUrl: "/product-category/foods/",
   },
 ];

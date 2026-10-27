@@ -8,7 +8,6 @@ import {
   Strengths,
 } from "@/components/home/Sections";
 import { NewsStrip } from "@/components/news/NewsStrip";
-import { LEGACY_ORIGIN } from "@/content/site";
 import type { Locale } from "@/content/types";
 import { alternates } from "@/lib/seo";
 
@@ -42,7 +41,7 @@ const slides: Slide[] = [
     },
     cta: { label: { en: "Explore our ranges", ar: "استكشف مجموعاتنا" }, path: "/products" },
     secondary: { label: { en: "About Unikai", ar: "من نحن" }, path: "/about" },
-    image: `${LEGACY_ORIGIN}/wp-content/uploads/2016/02/Dairy-range-website-1.png`,
+    image: "/products/dairy.webp",
   },
   {
     id: "export",
@@ -58,7 +57,7 @@ const slides: Slide[] = [
     },
     cta: { label: { en: "Start an export enquiry", ar: "ابدأ استفسار التصدير" }, path: "/export" },
     secondary: { label: { en: "View products", ar: "عرض المنتجات" }, path: "/products" },
-    image: `${LEGACY_ORIGIN}/wp-content/uploads/2016/02/Juice-beverage-Range-1.png`,
+    image: "/products/juices.webp",
   },
   {
     id: "icecream",
@@ -73,7 +72,22 @@ const slides: Slide[] = [
       ar: "مصاصات وألواح، كونز وساندويتش، سوفت سكوب، كُلفي، خط خالٍ من السكر ومجموعة رويال تريت الفاخرة — من مصنّع واحد.",
     },
     cta: { label: { en: "See the ice cream range", ar: "شاهد مجموعة الآيس كريم" }, path: "/products/ice-cream" },
-    image: `${LEGACY_ORIGIN}/wp-content/uploads/2016/02/Ice-cream-Range-Website-1.png`,
+    image: "/products/ice-cream.webp",
+  },
+  {
+    id: "foods",
+    tone: "navy",
+    eyebrow: { en: "Foods", ar: "الأغذية" },
+    title: {
+      en: "Delite cheese, cakes and nuts",
+      ar: "أجبان وكيك ومكسرات ديلايت",
+    },
+    body: {
+      en: "The ambient side of the portfolio — processed cheese, cakes and nuts under the Delite brand, alongside a basmati rice range.",
+      ar: "الجانب الجاف من المحفظة — أجبان مصنّعة وكيك ومكسرات تحت علامة ديلايت، إلى جانب مجموعة أرز بسمتي.",
+    },
+    cta: { label: { en: "See the foods range", ar: "شاهد مجموعة الأغذية" }, path: "/products/foods" },
+    image: "/products/foods.webp",
   },
 ];
 

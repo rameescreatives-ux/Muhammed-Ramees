@@ -151,22 +151,22 @@ export const board: Person[] = [
   { name: "Mr. Mana Mohamed Saeed Al Mulla", role: { en: "Chairman", ar: "رئيس مجلس الإدارة" }, image: `${L}/Mr.-Mana-Mohamed-Saeed-Al-Mulla-1.jpg` },
   { name: "Mr. Mish'al Mohamed Abdullah Moosa AlRaisi", role: { en: "Vice-Chairman", ar: "نائب رئيس مجلس الإدارة" }, image: `${L}/Mishal_1.jpg` },
   { name: "Mr. Adil Saleh Mohamed Al Ali", role: { en: "Director", ar: "عضو مجلس الإدارة" }, image: `${L}/Mr.-Adil-Al-Ali-1.jpg` },
-  { name: "Mr. Ali Humaid Ali Abdalla AlOwais", role: { en: "Director", ar: "عضو مجلس الإدارة" }, image: `${L}/Image-for-website.jpg` },
-  { name: "H.E. Haleema Humaid Ali AlOwais", role: { en: "Director", ar: "عضو مجلس الإدارة" }, image: `${L}/H-E-Haleema.jpg` },
-  { name: "Mr. Hashem Saalem Eldash", role: { en: "Director", ar: "عضو مجلس الإدارة" }, image: `${L}/Hashim-Director.png` },
+  { name: "Mr. Ali Humaid Ali Abdalla AlOwais", role: { en: "Director", ar: "عضو مجلس الإدارة" }, /* no photograph supplied */ },
+  { name: "H.E. Haleema Humaid Ali AlOwais", role: { en: "Director", ar: "عضو مجلس الإدارة" }, image: "/team/haleema-alowais.jpg" },
+  { name: "Mr. Hashem Saalem Eldash", role: { en: "Director", ar: "عضو مجلس الإدارة" }, image: "/team/hashem-eldash.jpg" },
   { name: "Mr. Ahmed Saif Abdulrahman AlAshram", role: { en: "Director", ar: "عضو مجلس الإدارة" }, image: `${L}/Ahmed-Al-Ashram.jpeg` },
 ];
 
 export const management: Person[] = [
-  { name: "Mr. Neeraj Vohra", role: { en: "Chief Executive Officer", ar: "الرئيس التنفيذي" }, image: `${L}/CEOs-message-1.jpg` },
-  { name: "Mr. Rahul Sharma", role: { en: "Chief Financial Officer", ar: "المدير المالي" }, image: `${LEGACY_ORIGIN}/wp-content/uploads/2021/08/rahul-new-pic.png` },
-  { name: "Mr. Ahmed Bedier", role: { en: "Chief Services Officer", ar: "مدير الخدمات" }, image: `${L}/5.jpg` },
-  { name: "Mr. Jano Ahmad", role: { en: "Director — Operations", ar: "مدير العمليات" }, image: `${L}/Jano_Unikai.png` },
-  { name: "Mr. Krishna Kumar", role: { en: "Sales & Marketing Director", ar: "مدير المبيعات والتسويق" }, image: `${L}/Krishna-Photo-e1707391138755.jpg` },
-  { name: "Mr. Rahim Khan", role: { en: "Export and Marketing Manager", ar: "مدير التصدير والتسويق" }, image: `${L}/Rahim_khan.jpg` },
-  { name: "Mr. Franklin Isacc", role: { en: "General Manager — Oman", ar: "المدير العام — عُمان" }, image: `${L}/franklin.jpg` },
-  { name: "Mr. Muhammad Akbar Khan", role: { en: "Compliance Manager", ar: "مدير الامتثال" }, image: `${L}/Akbar.jpg` },
-  { name: "Ms. Samah Zaab", role: { en: "Board Secretary", ar: "أمين سر مجلس الإدارة" }, image: `${L}/samah_zaab1.jpg` },
+  { name: "Mr. Neeraj Vohra", role: { en: "Chief Executive Officer", ar: "الرئيس التنفيذي" }, image: "/team/neeraj-vohra.jpg" },
+  { name: "Mr. Rahul Sharma", role: { en: "Chief Financial Officer", ar: "المدير المالي" }, image: "/team/rahul-sharma.jpg" },
+  { name: "Mr. Ahmed Bedier", role: { en: "Chief Services Officer", ar: "مدير الخدمات" }, image: "/team/ahmed-bedier.jpg" },
+  { name: "Mr. Jano Ahmad", role: { en: "Director — Operations", ar: "مدير العمليات" }, image: "/team/jano-ahmad.jpg" },
+  { name: "Mr. Krishna Kumar", role: { en: "Sales & Marketing Director", ar: "مدير المبيعات والتسويق" }, image: "/team/krishna-kumar.jpg" },
+  { name: "Mr. Rahim Khan", role: { en: "Export and Marketing Manager", ar: "مدير التصدير والتسويق" }, image: "/team/rahim-khan.jpg" },
+  { name: "Mr. Franklin Isacc", role: { en: "General Manager — Oman", ar: "المدير العام — عُمان" }, image: "/team/franklin-isacc.jpg" },
+  { name: "Mr. Muhammad Akbar Khan", role: { en: "Compliance Manager", ar: "مدير الامتثال" }, image: "/team/akbar-khan.jpg" },
+  { name: "Ms. Samah Zaab", role: { en: "Board Secretary", ar: "أمين سر مجلس الإدارة" }, image: "/team/samah-zaab.jpg" },
 ];
 
 /** CEO message — verbatim from the existing site. */
@@ -174,7 +174,7 @@ export const ceoMessage = {
   heading: { en: "Uniquely Unikai!", ar: "يونيكاي… بتميّز فريد" },
   author: "Neeraj Vohra",
   authorRole: { en: "Chief Executive Officer", ar: "الرئيس التنفيذي" },
-  image: `${L}/CEOs-message-1.jpg`,
+  image: "/team/neeraj-vohra.jpg",
   body: {
     en: [
       "I consider it an absolute privilege to be heading the committed teams at one of the largest FMCG companies in the UAE. It is what makes us special. It also underlines the value of Brand Unikai — today if it's a household name in 29 countries in the region, it is thanks to our outstanding quality. Millions of customers trust Unikai, and their goodwill is our most valued treasure.",

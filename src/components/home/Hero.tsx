@@ -113,17 +113,22 @@ export function Hero({ slides, locale }: { slides: Slide[]; locale: Locale }) {
               Shown on every breakpoint: hiding it below lg left phones —
               most of the traffic — with a hero that had no image at all. */}
           <div className="relative order-1 lg:order-2">
-            <div className="relative aspect-[5/3] sm:aspect-4/3">
+            <div className="relative aspect-[5/4] sm:aspect-4/3">
               {slide.image ? (
-                <Image
-                  key={slide.image}
-                  src={slide.image}
-                  alt={t(slide.eyebrow, locale)}
-                  fill
-                  priority={index === 0}
-                  sizes="(max-width: 640px) 90vw, (max-width: 1024px) 70vw, 560px"
-                  className="anim-slow-zoom object-contain drop-shadow-[0_30px_50px_rgba(0,0,0,.35)]"
-                />
+                /* The range shots are cut-outs on white. Lifting them onto
+                   a soft light panel keeps the packs readable against the
+                   navy field instead of leaving a hard white rectangle. */
+                <div className="absolute inset-0 overflow-hidden rounded-3xl bg-gradient-to-br from-white via-white to-cream shadow-[0_30px_70px_-30px_rgba(0,0,0,.6)] ring-1 ring-white/20">
+                  <Image
+                    key={slide.image}
+                    src={slide.image}
+                    alt={t(slide.eyebrow, locale)}
+                    fill
+                    priority={index === 0}
+                    sizes="(max-width: 640px) 92vw, (max-width: 1024px) 70vw, 560px"
+                    className="anim-slow-zoom object-contain p-4 sm:p-6"
+                  />
+                </div>
               ) : null}
               <div
                 aria-hidden

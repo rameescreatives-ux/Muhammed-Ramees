@@ -56,6 +56,20 @@
    * screen while every other sign says it opened. Drive the same custom
    * property instead, and set `translate` directly as a fallback.
    */
+  /**
+   * Resolve a root-absolute path against this page's depth.
+   *
+   * Paths carried in data attributes are plain JSON, so the build's
+   * absolute-to-relative pass never sees them. Anything this script puts
+   * into the DOM has to be resolved here instead, or it points at the
+   * origin root and 404s wherever the site is not mounted there.
+   */
+  function resolve(path) {
+    if (!path) return path;
+    if (/^(https?:)?\/\//.test(path) || path.indexOf("data:") === 0) return path;
+    return path.charAt(0) === "/" ? BASE + path.slice(1) : path;
+  }
+
   function slideX(el, value) {
     el.style.setProperty("--tw-translate-x", value);
     el.style.translate = value + " var(--tw-translate-y, 0)";
@@ -225,10 +239,14 @@
       if (eyebrow) eyebrow.lastChild.textContent = s.eyebrow;
       if (h1) h1.textContent = s.title;
       if (body) body.textContent = s.body;
-      if (visual && s.image) visual.setAttribute("src", s.image);
+      if (visual && s.image) {
+        delete visual.dataset.fallback;
+        visual.style.visibility = "";
+        visual.setAttribute("src", resolve(s.image));
+      }
       var links = copy ? copy.querySelectorAll("a") : [];
       if (links[0] && s.ctaLabel) links[0].firstChild.textContent = s.ctaLabel;
-      if (links[0] && s.ctaHref) links[0].setAttribute("href", s.ctaHref);
+      if (links[0] && s.ctaHref) links[0].setAttribute("href", resolve(s.ctaHref));
       if (copy) { copy.style.animation = "none"; void copy.offsetWidth; copy.style.animation = ""; }
     }
 
@@ -395,7 +413,12 @@
       var img = e.target;
       if (!img || img.tagName !== "IMG" || img.dataset.fallback) return;
       img.dataset.fallback = "1";
+      // Clear any tile left from a previous failure on this element — the
+      // hero image swaps source as the banner rotates.
+      var old = img.parentNode && img.parentNode.querySelector("[data-img-fallback]");
+      if (old) old.remove();
       var box = document.createElement("div");
+      box.setAttribute("data-img-fallback", "");
       box.textContent = img.alt || "Image pending";
       box.setAttribute("style",
         "position:absolute;inset:0;display:flex;align-items:center;justify-content:center;" +

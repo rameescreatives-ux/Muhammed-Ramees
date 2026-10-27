@@ -118,7 +118,19 @@ function postProcess() {
   //
   //     Rewriting each absolute URL to one relative to its own file works
   //     at the root AND under any prefix, with no runtime guessing.
-  const roots = ["next-assets", "en", "ar", "brand", "favicon.ico", "404.html"];
+  // Every top-level name the pages can link to. Anything served from
+  // /public needs to be here or its absolute URL survives the rewrite and
+  // 404s on a host that serves the site from a sub-path.
+  const roots = [
+    "next-assets",
+    "en",
+    "ar",
+    "brand",
+    "products",
+    "team",
+    "favicon.ico",
+    "404.html",
+  ];
   for (const f of walk(out)) {
     if (!f.endsWith(".html")) continue;
     const depth = path.relative(out, f).split(path.sep).length - 1;
@@ -128,6 +140,32 @@ function postProcess() {
       t = t.replaceAll(`"/${r}`, `"${prefix}${r}`);
     }
     fs.writeFileSync(f, t);
+  }
+
+  // 3b-ii. Route the remaining legacy pack shots through a resizing CDN.
+  //
+  //        Range imagery and the team portraits are bundled in /public and
+  //        need nothing. The sub-range pack shots still live on the legacy
+  //        WordPress host as full-size PNGs — 180KB each for a tile shown
+  //        at ~240px. Proxying them resizes to WebP on the fly and serves
+  //        from a CDN with permissive CORS, which is both much faster and
+  //        less likely to be refused than hot-linking the origin.
+  //
+  //        Preview only. The production build optimises these itself
+  //        through next/image, with no third party involved.
+  const PROXY = "https://images.weserv.nl/?url=";
+  for (const f of walk(out)) {
+    if (!f.endsWith(".html")) continue;
+    const t = fs.readFileSync(f, "utf8");
+    if (!t.includes("www.unikai.com/wp-content")) continue;
+    fs.writeFileSync(
+      f,
+      t.replace(
+        /https:\/\/www\.unikai\.com\/wp-content\/uploads\/([^"'\s)]+\.(?:png|jpe?g))/gi,
+        (_m, p) =>
+          `${PROXY}www.unikai.com/wp-content/uploads/${p}&w=560&output=webp&q=78`,
+      ),
+    );
   }
 
   // 3c. Pack-shot fallback.
